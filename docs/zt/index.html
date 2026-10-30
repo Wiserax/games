@@ -22,12 +22,12 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/tokens.css?v=mvuyt2g5">
-<link rel="stylesheet" href="../assets/components.css?v=mvuyt2g5">
-<link rel="stylesheet" href="../assets/site.css?v=mvuyt2g5">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/tokens.css?v=mvuzibn2">
+<link rel="stylesheet" href="../assets/components.css?v=mvuzibn2">
+<link rel="stylesheet" href="../assets/site.css?v=mvuzibn2">
 <script>try{const t=JSON.parse(localStorage.getItem('wg.theme'));if(t)document.documentElement.dataset.theme=t}catch{}</script>
-<script type="module" src="../assets/app.js?v=mvuyt2g5"></script>
+<script type="module" src="../assets/app.js?v=mvuzibn2"></script>
 </head>
 <body data-game="zt">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -67,10 +67,10 @@
 <main id="main" data-accent="zt">
 <section class="ghero wg-wrap">
   <div class="ghero-copy">
-    <p class="level-kicker"><span class="wg-label">Level 01 · Tower defense</span><span class="wg-status wg-status--live">Playable</span></p>
+    <p class="level-kicker"><span class="wg-label">Level 01 · Tower defense</span><span class="wg-status wg-status--new" data-fresh data-first="2026-09-22" data-last="2026-10-16" hidden></span><span class="wg-chip game-chip">6,400 zombies on screen</span></p>
     <h1 class="ghero-title">Zombie Tower</h1>
     <p class="level-pitch">Tap zombies. Build your fortress. Return stronger.</p>
-    <div class="actions" data-hero-actions><a class="wg-play wg-play--lg" href="https://zombie-tower.vercel.app/" data-play="zt" data-accent="zt" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> Zombie Tower</span></a><button class="wg-like wg-like--lg" type="button" data-like="zt" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like Zombie Tower</span><span class="wg-like__count" data-stat="zt:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/zt/" data-share-title="Zombie Tower: Tap zombies. Build your fortress. Return stronger." aria-label="Share Zombie Tower"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
+    <div class="actions" data-hero-actions><a class="wg-play " href="https://zombie-tower.vercel.app/" data-play="zt" data-accent="zt" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> Zombie Tower</span></a><button class="wg-like wg-like--lg" type="button" data-like="zt" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like Zombie Tower</span><span class="wg-like__count" data-stat="zt:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/zt/" data-share-title="Zombie Tower: Tap zombies. Build your fortress. Return stronger." aria-label="Share Zombie Tower"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
     <p class="hint">Portrait, phone friendly. Sound starts off. No install, no login.</p>
     <p class="level-what">Guard one tower while thousands of zombies pour in: tap to strike, hold to charge a big hit, buy upgrades and beat a boss at the end of every stage. Short runs, right in your phone browser.</p>
     <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-eye"/></svg><b data-stat="zt:view" data-unit="view">·</b><span class="unit">views</span></span><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="zt:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="zt:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
@@ -94,7 +94,12 @@
     <p>Zombie Tower started on 22 September as one question: can a phone browser draw a real zombie horde around a single tower? A day later my phone ran 8,000 low-detail zombies at 60 FPS, so I asked the agents for zombies that climb over each other instead of jamming. Version 0.4.7 turned the whole battlefield into a carpet of bodies, and we rolled it back the same day.</p>
     <p>From there it grew into a real game: three chapters, ten bosses, cards, a hold-to-charge strike and a 3D world map. This month it wears a Halloween costume. My favourite moment: an agent quietly deleted the &quot;tired garrison&quot; mechanic because a reviewer said nobody noticed it. I noticed. It came back, this time visible.</p>
   </article>
-  <aside class="hard"><p class="wg-label">Hardest part</p><p>Drawing the horde on a phone: with every effect on, my phone stays smooth up to 6,400 zombies and still runs 45 FPS with 8,000.</p></aside>
+  <div class="wg-boss hard is-defeated">
+    <span class="wg-boss__stamp">Defeated</span>
+    <div class="wg-boss__head"><span class="wg-boss__icon"><svg class="wg-i" aria-hidden="true"><use href="#i-skull"/></svg></span><div><span class="wg-boss__label">Boss fight · hardest part</span><p class="wg-title">Thousands of zombies on a phone</p></div></div>
+    <div class="wg-boss__hp"><span>HP</span><span class="wg-boss__bar" role="meter" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Problem left"><i style="--hp:0%"></i></span><span>0</span></div>
+    <p>With every effect on, my phone stays smooth up to 6,400 zombies and still runs 45 FPS with 8,000.</p>
+  </div>
 </section>
 
 <section class="block wg-wrap guest" id="cm" aria-labelledby="cm-t" data-comments="zt">
@@ -109,6 +114,7 @@
     <ul class="wg-comments" data-comment-list></ul>
     <p class="wg-empty" data-comment-empty hidden>No comments yet. Be the first to say something nice, or mean but useful.</p>
     <button class="wg-btn" type="button" data-comment-more hidden>Load older comments</button>
+    <p class="wg-form__alert" data-comment-offline hidden><svg class="wg-i" aria-hidden="true"><use href="#i-alert"/></svg><span>Comments can't load right now.</span> <button class="wg-btn" type="button" data-comment-retry>Retry</button></p>
   </div>
   <p class="guest-off wg-empty">The guestbook opens soon. Your likes already count on this device.</p>
 </section>

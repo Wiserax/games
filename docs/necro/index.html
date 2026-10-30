@@ -22,12 +22,12 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/tokens.css?v=mvuyt2g5">
-<link rel="stylesheet" href="../assets/components.css?v=mvuyt2g5">
-<link rel="stylesheet" href="../assets/site.css?v=mvuyt2g5">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/tokens.css?v=mvuzibn2">
+<link rel="stylesheet" href="../assets/components.css?v=mvuzibn2">
+<link rel="stylesheet" href="../assets/site.css?v=mvuzibn2">
 <script>try{const t=JSON.parse(localStorage.getItem('wg.theme'));if(t)document.documentElement.dataset.theme=t}catch{}</script>
-<script type="module" src="../assets/app.js?v=mvuyt2g5"></script>
+<script type="module" src="../assets/app.js?v=mvuzibn2"></script>
 </head>
 <body data-game="necro">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -67,10 +67,10 @@
 <main id="main" data-accent="necro">
 <section class="ghero wg-wrap">
   <div class="ghero-copy">
-    <p class="level-kicker"><span class="wg-label">Level 03 · Hack and slash</span><span class="wg-status wg-status--new">New today</span></p>
+    <p class="level-kicker"><span class="wg-label">Level 03 · Hack and slash</span><span class="wg-status wg-status--new" data-fresh data-first="2026-10-26" data-last="2026-10-30">New</span><span class="wg-chip game-chip">5 ghost hands</span></p>
     <h1 class="ghero-title">NECRO</h1>
     <p class="level-pitch">Raise the dead, take their souls.</p>
-    <div class="actions" data-hero-actions><a class="wg-play wg-play--lg" href="https://necro-dev.vercel.app/" data-play="necro" data-accent="necro" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> NECRO</span></a><button class="wg-like wg-like--lg" type="button" data-like="necro" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like NECRO</span><span class="wg-like__count" data-stat="necro:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/necro/" data-share-title="NECRO: Raise the dead, take their souls." aria-label="Share NECRO"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
+    <div class="actions" data-hero-actions><a class="wg-play " href="https://necro-dev.vercel.app/" data-play="necro" data-accent="necro" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> NECRO</span></a><button class="wg-like wg-like--lg" type="button" data-like="necro" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like NECRO</span><span class="wg-like__count" data-stat="necro:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/necro/" data-share-title="NECRO: Raise the dead, take their souls." aria-label="Share NECRO"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
     <p class="hint">Portrait, phone friendly. Drag anywhere to move. No install, no login.</p>
     <p class="level-what">Steer a necromancer with a joystick while her ghost hands swing up to five weapons on their own. Every enemy makes you stronger, until you can break the gate guard and open the next island.</p>
     <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-eye"/></svg><b data-stat="necro:view" data-unit="view">·</b><span class="unit">views</span></span><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="necro:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="necro:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
@@ -94,7 +94,12 @@
     <p>NECRO was a one-week remake study: rebuild the first three islands of a mobile idle RPG I like, with my own hero and setting, in the phone browser. On Monday the agents turned gameplay videos into a design doc and a first playable island. By Friday there were 460 commits.</p>
     <p>On day three I told them all the islands looked depressing, so islands 2 and 3 got new looks. The axe swing alone took eight versions. One of them failed because the test dummy stood 7 units away while real enemies come within 3.4, so the ghost hand kept reaching across the gap.</p>
   </article>
-  <aside class="hard"><p class="wg-label">Hardest part</p><p>Making one axe swing feel right at phone size: the hit lands 400 ms into a 1,300 ms swing, without the hand flying across the screen. Eight versions.</p></aside>
+  <div class="wg-boss hard is-defeated">
+    <span class="wg-boss__stamp">Defeated</span>
+    <div class="wg-boss__head"><span class="wg-boss__icon"><svg class="wg-i" aria-hidden="true"><use href="#i-skull"/></svg></span><div><span class="wg-boss__label">Boss fight · hardest part</span><p class="wg-title">One axe swing that feels right</p></div></div>
+    <div class="wg-boss__hp"><span>HP</span><span class="wg-boss__bar" role="meter" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Problem left"><i style="--hp:0%"></i></span><span>0</span></div>
+    <p>The hit lands 400 ms into a 1,300 ms swing, without the ghost hand flying across the screen. It took eight versions.</p>
+  </div>
 </section>
 
 <section class="block wg-wrap guest" id="cm" aria-labelledby="cm-t" data-comments="necro">
@@ -109,6 +114,7 @@
     <ul class="wg-comments" data-comment-list></ul>
     <p class="wg-empty" data-comment-empty hidden>No comments yet. Be the first to say something nice, or mean but useful.</p>
     <button class="wg-btn" type="button" data-comment-more hidden>Load older comments</button>
+    <p class="wg-form__alert" data-comment-offline hidden><svg class="wg-i" aria-hidden="true"><use href="#i-alert"/></svg><span>Comments can't load right now.</span> <button class="wg-btn" type="button" data-comment-retry>Retry</button></p>
   </div>
   <p class="guest-off wg-empty">The guestbook opens soon. Your likes already count on this device.</p>
 </section>

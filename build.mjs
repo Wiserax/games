@@ -55,7 +55,7 @@ function head({ title, desc, path, image, game }) {
 <link rel="icon" href="${r}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${r}assets/tokens.css?v=${V}">
 <link rel="stylesheet" href="${r}assets/components.css?v=${V}">
 <link rel="stylesheet" href="${r}assets/site.css?v=${V}">
@@ -104,9 +104,18 @@ function hud(items) {
   }).join('')}</div>`;
 }
 
+const DAY = 864e5;
+function fresh(g, now = Date.now()) {
+  const first = Date.parse(g.timeline[0].date + 'T00:00:00Z'), last = Date.parse(g.timeline[g.timeline.length - 1].date + 'T00:00:00Z');
+  if (now - first < 7 * DAY) return 'new';
+  if (now - last < 7 * DAY) return 'updated';
+  return '';
+}
 function status(g) {
-  if (g.status === 'new') return '<span class="wg-status wg-status--new">New today</span>';
-  return '<span class="wg-status wg-status--live">Playable</span>';
+  const f = fresh(g);
+  const text = f === 'new' ? 'New' : f === 'updated' ? `Updated ${fmtDate(g.timeline[g.timeline.length - 1].date)}` : '';
+  const attrs = `data-fresh data-first="${g.timeline[0].date}" data-last="${g.timeline[g.timeline.length - 1].date}"`;
+  return `<span class="wg-status wg-status--new" ${attrs}${f ? '' : ' hidden'}>${text}</span><span class="wg-chip game-chip">${esc(g.chip)}</span>`;
 }
 
 function loop(g, r, cls = '') {
@@ -134,6 +143,7 @@ function footer(path) {
 
 // node spots in % (x, y) on the map: a zig-zag, the locked "next game" last
 const SPOTS = [[17, 72], [39, 30], [61, 72], [83, 30], [83, 30]];
+const PHONE = [[18, 66], [40, 22], [63, 68], [85, 20], [85, 20]];
 function curve(pts) {
   let d = `M${pts[0][0]} ${pts[0][1]}`;
   for (let k = 0; k < pts.length - 1; k++) {
@@ -146,15 +156,16 @@ function curve(pts) {
 
 function levelMap(r) {
   const n = games.length + 1, pts = SPOTS.slice(0, n);
-  const at = (k) => `left:${pts[k][0]}%;top:${pts[k][1]}%`;
+  const at = (k) => `--x:${pts[k][0]}%;--y:${pts[k][1]}%;--px:${PHONE[k][0]}%;--py:${PHONE[k][1]}%`;
   const nodes = games.map((g, k) => `<a class="wg-node map-node" href="#${g.id}" data-node="${g.id}" data-accent="${g.id}" style="${at(k)}"${g.status === 'new' ? ' aria-current="true"' : ''}>
-      <span class="wg-node__disc"><img src="${r}media/${g.id}/thumb.webp" alt="" width="120" height="120">${g.status === 'new' ? '<span class="wg-new wg-new--corner">New</span>' : ''}<span class="cleared" title="Played">${i('check')}<span class="wg-sr">played</span></span></span>
+      <span class="wg-node__disc">${g.status === 'new' ? `<video data-loop muted loop playsinline preload="none" poster="${r}media/${g.id}/thumb.webp" aria-hidden="true"><source src="${r}media/${g.id}/node.mp4" type="video/mp4"></video>` : `<img src="${r}media/${g.id}/thumb.webp" alt="" width="120" height="120">`}${fresh(g) === 'new' ? '<span class="wg-new wg-new--corner" data-fresh-sticker>New</span>' : ''}<span class="cleared" title="Played">${i('check')}<span class="wg-sr">played</span></span></span>
       <span class="wg-node__label"><span class="wg-node__num">${pad(g.level)}</span>${esc(g.short || g.title)}</span>
     </a>`).join('\n    ');
-  return `<nav class="map" aria-label="Pick a game">
-    <svg class="map-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${curve(pts)}"/></svg>
+  return `<nav class="map" data-theme="dark" aria-label="Pick a game">
+    <svg class="map-path map-path--wide" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${curve(pts)}"/></svg>
+    <svg class="map-path map-path--phone" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${curve(PHONE.slice(0, n))}"/></svg>
     ${nodes}
-    <span class="wg-node map-node is-locked" style="${at(n - 1)}"><span class="wg-node__disc">${i('lock')}</span><span class="wg-node__label"><span class="wg-node__num">${pad(n)}</span>Next game</span></span>
+    <button class="wg-node map-node is-locked" type="button" data-locked style="${at(n - 1)}"><span class="wg-node__disc">${i('lock')}</span><span class="wg-node__label"><span class="wg-node__num">${pad(n)}</span>Next game</span></button>
   </nav>`;
 }
 
@@ -169,8 +180,8 @@ function gameCard(g) {
   </div>
   <div class="level-media">${loop(g, r)}</div>
   <div class="level-body">
-    <p class="level-what">${esc(g.what)}</p>
-    ${hud([[g.id, 'play', 'pad', 'play'], [g.id, 'like', 'heart', 'like'], [g.id, 'comment', 'chat', 'comment', `${r}${g.id}/#cm`]])}
+    <p class="level-what">${esc(g.whatShort)}</p>
+    ${hud([[g.id, 'play', 'pad', 'play'], [g.id, 'comment', 'chat', 'comment', `${r}${g.id}/#cm`]])}
     <div class="level-shots">${g.media.shots.slice(0, 3).map((s, n) => `<img src="${r}media/${g.id}/shot-${n + 1}-sm.webp" alt="${esc(s)}" width="${size(g, n, 1)[0]}" height="${size(g, n, 1)[1]}" loading="lazy" decoding="async">`).join('')}</div>
     <a class="more" href="${r}${g.id}/">Devlog, patch notes and comments ${i('right')}</a>
   </div>
@@ -180,19 +191,19 @@ function gameCard(g) {
 function home() {
   const path = '';
   const lead = games.find((g) => g.status === 'new') || games[games.length - 1];
-  const heroPlay = playBtn(lead, 'wg-play--lg play-hero', true).replace('<svg', `<img class="play-thumb" src="./media/${lead.id}/thumb.webp" alt="" width="40" height="40"><svg`);
+  const heroPlay = playBtn(lead, 'wg-play--lg play-hero', true).replace(i('play'), `<img class="play-thumb" src="./media/${lead.id}/thumb.webp" alt="" width="40" height="40">`);
   return `${head({ title: site.title, desc: site.description, path, image: 'media/og.jpg' })}
 ${topbar(path)}
 <main id="main">
-<section class="hero wg-wrap">
+<section class="hero wg-wrap" data-accent="${lead.id}">
   <div class="hero-copy">
     <h1 class="hero-title">${esc(site.h1[0])} <span class="wg-glow">${esc(site.h1[1])}</span></h1>
     <p class="hero-sub">${esc(site.sub)}</p>
   </div>
   <div class="hero-map">${levelMap('./')}</div>
   <div class="hero-cta" data-accent="${lead.id}">
-    <p class="wg-label cta-label">New · ${esc(lead.genre)}</p>
-    <div class="actions">${heroPlay}<a class="wg-btn see-all" href="#levels">See all ${games.length} games ${i('right')}</a></div>
+    <p class="wg-label cta-label"><span data-fresh-label${fresh(lead) === 'new' ? '' : ' hidden'}>New · </span>${esc(lead.genre)}</p>
+    <div class="actions">${heroPlay}</div>
     ${hud([['all', 'play', 'pad', 'play'], ['all', 'like', 'heart', 'like'], ['all', 'comment', 'chat', 'comment']])}
   </div>
 </section>
@@ -228,7 +239,7 @@ ${topbar(path, true)}
     <p class="level-kicker"><span class="wg-label">Level ${pad(g.level)} · ${esc(g.genre)}</span>${status(g)}</p>
     <h1 class="ghero-title">${esc(g.title)}</h1>
     <p class="level-pitch">${esc(g.pitch)}</p>
-    <div class="actions" data-hero-actions>${playBtn(g, 'wg-play--lg')}${likeBtn(g, true)}${shareBtn(g)}</div>
+    <div class="actions" data-hero-actions>${playBtn(g)}${likeBtn(g, true)}${shareBtn(g)}</div>
     <p class="hint">${esc(g.playNote)} No install, no login.</p>
     <p class="level-what">${esc(g.what)}</p>
     ${hud([[g.id, 'view', 'eye', 'view'], [g.id, 'play', 'pad', 'play'], [g.id, 'comment', 'chat', 'comment', '#cm']])}
@@ -246,7 +257,12 @@ ${topbar(path, true)}
   <article class="wg-story">
     ${g.story.map((p) => `<p>${esc(p)}</p>`).join('\n    ')}
   </article>
-  <aside class="hard"><p class="wg-label">Hardest part</p><p>${esc(g.hard)}</p></aside>
+  <div class="wg-boss hard${g.hardHp ? '' : ' is-defeated'}">
+    ${g.hardHp ? '' : '<span class="wg-boss__stamp">Defeated</span>'}
+    <div class="wg-boss__head"><span class="wg-boss__icon">${i('skull')}</span><div><span class="wg-boss__label">Boss fight · hardest part</span><p class="wg-title">${esc(g.hardTitle)}</p></div></div>
+    <div class="wg-boss__hp"><span>HP</span><span class="wg-boss__bar" role="meter" aria-valuenow="${g.hardHp}" aria-valuemin="0" aria-valuemax="100" aria-label="Problem left"><i style="--hp:${g.hardHp}%"></i></span><span>${g.hardHp}</span></div>
+    <p>${esc(g.hard)}</p>
+  </div>
 </section>
 
 <section class="block wg-wrap guest" id="cm" aria-labelledby="cm-t" data-comments="${g.id}">
@@ -261,6 +277,7 @@ ${topbar(path, true)}
     <ul class="wg-comments" data-comment-list></ul>
     <p class="wg-empty" data-comment-empty hidden>No comments yet. Be the first to say something nice, or mean but useful.</p>
     <button class="wg-btn" type="button" data-comment-more hidden>Load older comments</button>
+    <p class="wg-form__alert" data-comment-offline hidden>${i('alert')}<span>Comments can't load right now.</span> <button class="wg-btn" type="button" data-comment-retry>Retry</button></p>
   </div>
   <p class="guest-off wg-empty">The guestbook opens soon. Your likes already count on this device.</p>
 </section>
@@ -304,3 +321,4 @@ writeFileSync(join(OUT, '.nojekyll'), '');
 const lost = `${head({ title: 'Lost level | Wiserax Games', desc: 'This level does not exist.', path: '', image: 'media/og.jpg' })}${topbar('')}<main id="main" class="lost wg-wrap"><p class="wg-label">404</p><h1 class="hero-title">Wrong level. <span class="wg-glow">Respawning...</span></h1><p class="actions"><a class="wg-play" href="./">${i('play')}Back to the map</a></p></main>${footer('')}`;
 writeFileSync(join(OUT, '404.html'), lost.replaceAll('"./', `"${new URL(BASE).pathname}`));
 console.log(`built ${games.length} games into docs/ (api: ${API || 'none'})`);
+if (!API) console.warn('WARNING: no API address. Likes stay on each device, stats are hidden and the guestbook says it opens soon. Pass --api <url> or set content/site.json api.');

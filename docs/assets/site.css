@@ -26,7 +26,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 
 /* ---------- hero ---------- */
 .hero{display:grid;gap:var(--s-2);padding-top:var(--s-3);padding-bottom:var(--s-4)}
-.hero-title{font:var(--fw-800) clamp(34px,4.2vw + 18px,76px)/1.02 var(--font-sans);letter-spacing:var(--ls-h1);color:var(--text)}
+.hero-title{font:var(--fw-800) clamp(34px,3.4vw + 18px,64px)/1.02 var(--font-sans);letter-spacing:var(--ls-h1);color:var(--text)}
 .hero-title .wg-glow{display:block}
 .hero-sub{margin-top:var(--s-1h);font:var(--t-lead);color:var(--text-2)}
 .cta-label{color:var(--acc-ink);margin-bottom:var(--s-1h)}
@@ -36,12 +36,13 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 :root[data-theme="light"] .wg-glow{text-shadow:none}
 
 /* level map: a zig-zag path of round levels */
-.map{position:relative;height:250px;border:1px solid var(--line-2);border-radius:var(--r-3);overflow:hidden;
+.map{position:relative;height:280px;border:1px solid var(--line-2);border-radius:var(--r-3);overflow:hidden;
   background:radial-gradient(120% 90% at 70% 10%,color-mix(in srgb,var(--blue) 18%,transparent),transparent 60%),
   linear-gradient(var(--line) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/24px 24px,var(--s1)}
 .map-path{position:absolute;inset:0;width:100%;height:100%}
 .map-path path{fill:none;stroke:var(--mint-edge);stroke-width:4;stroke-linecap:round;stroke-dasharray:0 13;vector-effect:non-scaling-stroke}
-.map .wg-node{--size:64px;position:absolute;transform:translate(-50%,calc(var(--size) / -2 - 4px));gap:6px}
+.map .wg-node{--size:64px;position:absolute;left:var(--px);top:var(--py);transform:translate(-50%,calc(var(--size) / -2 - 4px));gap:6px}
+.map-path--wide{display:none}
 .map .wg-node[aria-current=true]{--size:78px}
 .map .wg-node__label{max-width:96px;white-space:normal;font-size:12px;padding:5px 8px;justify-content:center;text-align:center;line-height:1.15}
 .map .wg-node__num{font-size:11px}
@@ -96,9 +97,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .gallery .wg-media::before{display:none}
 .gallery .wg-media img{height:auto;border-radius:16px}
 .gallery figcaption{margin-top:var(--s-1);font:var(--t-small);color:var(--text-3)}
-.hard{margin-top:var(--s-3);max-width:var(--measure);padding:var(--s-2);border:1px solid var(--line-2);border-left:3px solid var(--acc);border-radius:var(--r-1);background:var(--acc-soft)}
-.hard .wg-label{color:var(--acc-ink)}
-.hard p:last-child{margin-top:var(--s-1);font:var(--t-title);color:var(--text)}
+.hard{margin-top:var(--s-3);max-width:var(--measure)}
 .guest .wg-form{max-width:640px}
 .guest .wg-comments{max-width:640px;margin-top:var(--s-3)}
 .guest .wg-empty,.guest [data-comment-more]{margin-top:var(--s-2);max-width:640px}
@@ -130,6 +129,9 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 /* ---------- wider screens ---------- */
 @media (min-width:600px){
   .map{height:300px}
+  .map .wg-node{left:var(--x);top:var(--y)}
+  .map-path--wide{display:block}
+  .map-path--phone{display:none}
   .map .wg-node{--size:84px}
   .map .wg-node[aria-current=true]{--size:104px}
   .map .wg-node__label{max-width:none;white-space:nowrap;font-size:var(--fs-3)}
@@ -162,3 +164,27 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .wg-btn{font:var(--fw-600) var(--fs-3)/1 var(--font-sans);letter-spacing:0;text-transform:none}
 @media (min-width:600px){.gallery{grid-template-columns:repeat(3,minmax(0,280px))}}
 .wg-footer nav a{display:inline-flex;align-items:center;justify-content:center;min-width:var(--tap)}
+
+/* ---------- round 2 ---------- */
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.hero-title,.level-title,.ghero-title,.wg-h2{text-wrap:balance}
+.hero-sub,.level-what,.wg-story p{text-wrap:pretty}
+.map{background-color:var(--s1);color:var(--text)}
+.map .wg-node__disc video{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.map button.wg-node{background:none;border:0;padding:0}
+.map .wg-node.is-shaking .wg-node__disc{animation:wg-shake var(--dur-3) var(--ease-io)}
+.game-chip{min-height:28px;font:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--acc-ink);border-color:var(--acc-line);background:var(--acc-soft)}
+.level:target,.level.is-picked{animation:picked 1.4s var(--ease-out)}
+@keyframes picked{0%,40%{box-shadow:0 0 0 3px var(--acc),0 0 48px var(--acc-glow)}100%{box-shadow:0 0 0 0 transparent}}
+.actions .wg-like,.actions .wg-iconbtn{min-height:56px;height:56px;min-width:56px}
+.actions .wg-like{padding:0 var(--s-2)}
+.level-head .actions .wg-play{flex:1 1 auto;max-width:280px}
+.has-playbar .wg-toasts{bottom:calc(84px + env(safe-area-inset-bottom))}
+@media (max-width:599px){
+  .level{grid-template-columns:1fr}
+  .level-media .wg-media{max-height:56svh;width:auto;aspect-ratio:9/19.5}
+  .level-body{grid-column:1/-1}
+  .level-what{font-size:var(--fs-4)}
+}

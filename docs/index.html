@@ -22,12 +22,12 @@
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/tokens.css?v=mvuyt2g5">
-<link rel="stylesheet" href="./assets/components.css?v=mvuyt2g5">
-<link rel="stylesheet" href="./assets/site.css?v=mvuyt2g5">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/tokens.css?v=mvuzibn2">
+<link rel="stylesheet" href="./assets/components.css?v=mvuzibn2">
+<link rel="stylesheet" href="./assets/site.css?v=mvuzibn2">
 <script>try{const t=JSON.parse(localStorage.getItem('wg.theme'));if(t)document.documentElement.dataset.theme=t}catch{}</script>
-<script type="module" src="./assets/app.js?v=mvuyt2g5"></script>
+<script type="module" src="./assets/app.js?v=mvuzibn2"></script>
 </head>
 <body data-game="site">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -65,37 +65,38 @@
   </div>
 </header>
 <main id="main">
-<section class="hero wg-wrap">
+<section class="hero wg-wrap" data-accent="necro">
   <div class="hero-copy">
     <h1 class="hero-title">I make games with AI agents. <span class="wg-glow">Pick a level.</span></h1>
     <p class="hero-sub">Free, in your phone browser. No install, no login.</p>
   </div>
-  <div class="hero-map"><nav class="map" aria-label="Pick a game">
-    <svg class="map-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M17 72 C20.7 65.0 31.7 30.0 39 30 C46.3 30.0 53.7 72.0 61 72 C68.3 72.0 79.3 37.0 83 30"/></svg>
-    <a class="wg-node map-node" href="#zt" data-node="zt" data-accent="zt" style="left:17%;top:72%">
+  <div class="hero-map"><nav class="map" data-theme="dark" aria-label="Pick a game">
+    <svg class="map-path map-path--wide" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M17 72 C20.7 65.0 31.7 30.0 39 30 C46.3 30.0 53.7 72.0 61 72 C68.3 72.0 79.3 37.0 83 30"/></svg>
+    <svg class="map-path map-path--phone" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M18 66 C21.7 58.7 32.5 21.7 40 22 C47.5 22.3 55.5 68.3 63 68 C70.5 67.7 81.3 28.0 85 20"/></svg>
+    <a class="wg-node map-node" href="#zt" data-node="zt" data-accent="zt" style="--x:17%;--y:72%;--px:18%;--py:66%">
       <span class="wg-node__disc"><img src="./media/zt/thumb.webp" alt="" width="120" height="120"><span class="cleared" title="Played"><svg class="wg-i" aria-hidden="true"><use href="#i-check"/></svg><span class="wg-sr">played</span></span></span>
       <span class="wg-node__label"><span class="wg-node__num">01</span>Zombie Tower</span>
     </a>
-    <a class="wg-node map-node" href="#graft" data-node="graft" data-accent="graft" style="left:39%;top:30%">
+    <a class="wg-node map-node" href="#graft" data-node="graft" data-accent="graft" style="--x:39%;--y:30%;--px:40%;--py:22%">
       <span class="wg-node__disc"><img src="./media/graft/thumb.webp" alt="" width="120" height="120"><span class="cleared" title="Played"><svg class="wg-i" aria-hidden="true"><use href="#i-check"/></svg><span class="wg-sr">played</span></span></span>
       <span class="wg-node__label"><span class="wg-node__num">02</span>GRAFT</span>
     </a>
-    <a class="wg-node map-node" href="#necro" data-node="necro" data-accent="necro" style="left:61%;top:72%" aria-current="true">
-      <span class="wg-node__disc"><img src="./media/necro/thumb.webp" alt="" width="120" height="120"><span class="wg-new wg-new--corner">New</span><span class="cleared" title="Played"><svg class="wg-i" aria-hidden="true"><use href="#i-check"/></svg><span class="wg-sr">played</span></span></span>
+    <a class="wg-node map-node" href="#necro" data-node="necro" data-accent="necro" style="--x:61%;--y:72%;--px:63%;--py:68%" aria-current="true">
+      <span class="wg-node__disc"><video data-loop muted loop playsinline preload="none" poster="./media/necro/thumb.webp" aria-hidden="true"><source src="./media/necro/node.mp4" type="video/mp4"></video><span class="wg-new wg-new--corner" data-fresh-sticker>New</span><span class="cleared" title="Played"><svg class="wg-i" aria-hidden="true"><use href="#i-check"/></svg><span class="wg-sr">played</span></span></span>
       <span class="wg-node__label"><span class="wg-node__num">03</span>NECRO</span>
     </a>
-    <span class="wg-node map-node is-locked" style="left:83%;top:30%"><span class="wg-node__disc"><svg class="wg-i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="wg-node__label"><span class="wg-node__num">04</span>Next game</span></span>
+    <button class="wg-node map-node is-locked" type="button" data-locked style="--x:83%;--y:30%;--px:85%;--py:20%"><span class="wg-node__disc"><svg class="wg-i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="wg-node__label"><span class="wg-node__num">04</span>Next game</span></button>
   </nav></div>
   <div class="hero-cta" data-accent="necro">
-    <p class="wg-label cta-label">New · Hack and slash</p>
-    <div class="actions"><a class="wg-play wg-play--lg play-hero" href="https://necro-dev.vercel.app/" data-play="necro" data-accent="necro" rel="noopener"><img class="play-thumb" src="./media/necro/thumb.webp" alt="" width="40" height="40"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play NECRO</a><a class="wg-btn see-all" href="#levels">See all 3 games <svg class="wg-i" aria-hidden="true"><use href="#i-right"/></svg></a></div>
+    <p class="wg-label cta-label"><span data-fresh-label>New · </span>Hack and slash</p>
+    <div class="actions"><a class="wg-play wg-play--lg play-hero" href="https://necro-dev.vercel.app/" data-play="necro" data-accent="necro" rel="noopener"><img class="play-thumb" src="./media/necro/thumb.webp" alt="" width="40" height="40">Play NECRO</a></div>
     <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="all:play" data-unit="play">·</b><span class="unit">plays</span></span><span class="wg-hud__item"><svg class="wg-i wg-i--heart" aria-hidden="true"><use href="#i-heart"/></svg><b data-stat="all:like" data-unit="like">·</b><span class="unit">likes</span></span><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="all:comment" data-unit="comment">·</b><span class="unit">comments</span></span></div>
   </div>
 </section>
 <div class="levels wg-wrap" id="levels">
 <section class="level" id="zt" data-accent="zt" aria-labelledby="zt-t">
   <div class="level-head">
-    <p class="level-kicker"><span class="wg-label">Level 01 · Tower defense</span><span class="wg-status wg-status--live">Playable</span></p>
+    <p class="level-kicker"><span class="wg-label">Level 01 · Tower defense</span><span class="wg-status wg-status--new" data-fresh data-first="2026-09-22" data-last="2026-10-16" hidden></span><span class="wg-chip game-chip">6,400 zombies on screen</span></p>
     <h2 class="level-title" id="zt-t">Zombie Tower</h2>
     <p class="level-pitch">Tap zombies. Build your fortress. Return stronger.</p>
     <div class="actions"><a class="wg-play " href="https://zombie-tower.vercel.app/" data-play="zt" data-accent="zt" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> Zombie Tower</span></a><button class="wg-like" type="button" data-like="zt" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like Zombie Tower</span><span class="wg-like__count" data-stat="zt:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/zt/" data-share-title="Zombie Tower: Tap zombies. Build your fortress. Return stronger." aria-label="Share Zombie Tower"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
@@ -107,15 +108,15 @@
     <button class="wg-iconbtn loop-toggle" type="button" aria-pressed="false" aria-label="Pause the gameplay loops" data-loop-toggle><span class="ico-pause" aria-hidden="true"></span><svg class="wg-i ico-play" aria-hidden="true"><use href="#i-play"/></svg></button>
   </figure></div>
   <div class="level-body">
-    <p class="level-what">Guard one tower while thousands of zombies pour in: tap to strike, hold to charge a big hit, buy upgrades and beat a boss at the end of every stage. Short runs, right in your phone browser.</p>
-    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="zt:play" data-unit="play">·</b><span class="unit">plays</span></span><span class="wg-hud__item"><svg class="wg-i wg-i--heart" aria-hidden="true"><use href="#i-heart"/></svg><b data-stat="zt:like" data-unit="like">·</b><span class="unit">likes</span></span><a class="wg-hud__item" href="./zt/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="zt:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
+    <p class="level-what">Guard one tower against thousands of zombies: tap, hold, upgrade, beat the boss.</p>
+    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="zt:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="./zt/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="zt:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
     <div class="level-shots"><img src="./media/zt/shot-1-sm.webp" alt="Lightning towers shred the horde" width="300" height="534" loading="lazy" decoding="async"><img src="./media/zt/shot-2-sm.webp" alt="The Eye Golem takes a beam" width="300" height="534" loading="lazy" decoding="async"><img src="./media/zt/shot-3-sm.webp" alt="Blade frenzy through packed zombies" width="300" height="534" loading="lazy" decoding="async"></div>
     <a class="more" href="./zt/">Devlog, patch notes and comments <svg class="wg-i" aria-hidden="true"><use href="#i-right"/></svg></a>
   </div>
 </section>
 <section class="level" id="graft" data-accent="graft" aria-labelledby="graft-t">
   <div class="level-head">
-    <p class="level-kicker"><span class="wg-label">Level 02 · Multiplayer auto-battler</span><span class="wg-status wg-status--live">Playable</span></p>
+    <p class="level-kicker"><span class="wg-label">Level 02 · Multiplayer auto-battler</span><span class="wg-status wg-status--new" data-fresh data-first="2026-10-14" data-last="2026-10-28">Updated Oct 28</span><span class="wg-chip game-chip">Up to 12 players</span></p>
     <h2 class="level-title" id="graft-t">GRAFT</h2>
     <p class="level-pitch">Kill the beast. Wear its body.</p>
     <div class="actions"><a class="wg-play " href="https://graft-game.vercel.app/?lang=en" data-play="graft" data-accent="graft" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> GRAFT</span></a><button class="wg-like" type="button" data-like="graft" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like GRAFT</span><span class="wg-like__count" data-stat="graft:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/graft/" data-share-title="GRAFT: Kill the beast. Wear its body." aria-label="Invite friends"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
@@ -127,15 +128,15 @@
     <button class="wg-iconbtn loop-toggle" type="button" aria-pressed="false" aria-label="Pause the gameplay loops" data-loop-toggle><span class="ico-pause" aria-hidden="true"></span><svg class="wg-i ico-play" aria-hidden="true"><use href="#i-play"/></svg></button>
   </figure></div>
   <div class="level-body">
-    <p class="level-what">Every beast you kill drops a body part (head, back, arms or legs) that you graft onto your hero, until you are a crab-snake-wolf hybrid with its own playstyle. Last one standing wins: solo against 7 bots, or with up to 12 friends.</p>
-    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="graft:play" data-unit="play">·</b><span class="unit">plays</span></span><span class="wg-hud__item"><svg class="wg-i wg-i--heart" aria-hidden="true"><use href="#i-heart"/></svg><b data-stat="graft:like" data-unit="like">·</b><span class="unit">likes</span></span><a class="wg-hud__item" href="./graft/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="graft:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
+    <p class="level-what">Every beast you kill drops a part you wear, until you are a crab-snake-wolf hybrid.</p>
+    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="graft:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="./graft/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="graft:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
     <div class="level-shots"><img src="./media/graft/shot-1-sm.webp" alt="Snake Queen boss fight" width="300" height="650" loading="lazy" decoding="async"><img src="./media/graft/shot-2-sm.webp" alt="A skeleton wearing its kills" width="300" height="650" loading="lazy" decoding="async"><img src="./media/graft/shot-3-sm.webp" alt="Wave cleared: pick one part" width="300" height="649" loading="lazy" decoding="async"></div>
     <a class="more" href="./graft/">Devlog, patch notes and comments <svg class="wg-i" aria-hidden="true"><use href="#i-right"/></svg></a>
   </div>
 </section>
 <section class="level" id="necro" data-accent="necro" aria-labelledby="necro-t">
   <div class="level-head">
-    <p class="level-kicker"><span class="wg-label">Level 03 · Hack and slash</span><span class="wg-status wg-status--new">New today</span></p>
+    <p class="level-kicker"><span class="wg-label">Level 03 · Hack and slash</span><span class="wg-status wg-status--new" data-fresh data-first="2026-10-26" data-last="2026-10-30">New</span><span class="wg-chip game-chip">5 ghost hands</span></p>
     <h2 class="level-title" id="necro-t">NECRO</h2>
     <p class="level-pitch">Raise the dead, take their souls.</p>
     <div class="actions"><a class="wg-play " href="https://necro-dev.vercel.app/" data-play="necro" data-accent="necro" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> NECRO</span></a><button class="wg-like" type="button" data-like="necro" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like NECRO</span><span class="wg-like__count" data-stat="necro:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/necro/" data-share-title="NECRO: Raise the dead, take their souls." aria-label="Share NECRO"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
@@ -147,8 +148,8 @@
     <button class="wg-iconbtn loop-toggle" type="button" aria-pressed="false" aria-label="Pause the gameplay loops" data-loop-toggle><span class="ico-pause" aria-hidden="true"></span><svg class="wg-i ico-play" aria-hidden="true"><use href="#i-play"/></svg></button>
   </figure></div>
   <div class="level-body">
-    <p class="level-what">Steer a necromancer with a joystick while her ghost hands swing up to five weapons on their own. Every enemy makes you stronger, until you can break the gate guard and open the next island.</p>
-    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="necro:play" data-unit="play">·</b><span class="unit">plays</span></span><span class="wg-hud__item"><svg class="wg-i wg-i--heart" aria-hidden="true"><use href="#i-heart"/></svg><b data-stat="necro:like" data-unit="like">·</b><span class="unit">likes</span></span><a class="wg-hud__item" href="./necro/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="necro:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
+    <p class="level-what">A necromancer whose ghost hands swing five weapons at once, island by island.</p>
+    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="necro:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="./necro/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="necro:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
     <div class="level-shots"><img src="./media/necro/shot-1-sm.webp" alt="The Frost Colossus in the crystals" width="300" height="649" loading="lazy" decoding="async"><img src="./media/necro/shot-2-sm.webp" alt="Frost Abbey yard, abbey knights" width="300" height="649" loading="lazy" decoding="async"><img src="./media/necro/shot-3-sm.webp" alt="Ashen Fields: rider and raiders" width="300" height="649" loading="lazy" decoding="async"></div>
     <a class="more" href="./necro/">Devlog, patch notes and comments <svg class="wg-i" aria-hidden="true"><use href="#i-right"/></svg></a>
   </div>

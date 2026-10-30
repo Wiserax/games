@@ -22,12 +22,12 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/tokens.css?v=mvuyt2g5">
-<link rel="stylesheet" href="../assets/components.css?v=mvuyt2g5">
-<link rel="stylesheet" href="../assets/site.css?v=mvuyt2g5">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/tokens.css?v=mvuzibn2">
+<link rel="stylesheet" href="../assets/components.css?v=mvuzibn2">
+<link rel="stylesheet" href="../assets/site.css?v=mvuzibn2">
 <script>try{const t=JSON.parse(localStorage.getItem('wg.theme'));if(t)document.documentElement.dataset.theme=t}catch{}</script>
-<script type="module" src="../assets/app.js?v=mvuyt2g5"></script>
+<script type="module" src="../assets/app.js?v=mvuzibn2"></script>
 </head>
 <body data-game="graft">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -67,10 +67,10 @@
 <main id="main" data-accent="graft">
 <section class="ghero wg-wrap">
   <div class="ghero-copy">
-    <p class="level-kicker"><span class="wg-label">Level 02 · Multiplayer auto-battler</span><span class="wg-status wg-status--live">Playable</span></p>
+    <p class="level-kicker"><span class="wg-label">Level 02 · Multiplayer auto-battler</span><span class="wg-status wg-status--new" data-fresh data-first="2026-10-14" data-last="2026-10-28">Updated Oct 28</span><span class="wg-chip game-chip">Up to 12 players</span></p>
     <h1 class="ghero-title">GRAFT</h1>
     <p class="level-pitch">Kill the beast. Wear its body.</p>
-    <div class="actions" data-hero-actions><a class="wg-play wg-play--lg" href="https://graft-game.vercel.app/?lang=en" data-play="graft" data-accent="graft" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> GRAFT</span></a><button class="wg-like wg-like--lg" type="button" data-like="graft" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like GRAFT</span><span class="wg-like__count" data-stat="graft:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/graft/" data-share-title="GRAFT: Kill the beast. Wear its body." aria-label="Invite friends"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
+    <div class="actions" data-hero-actions><a class="wg-play " href="https://graft-game.vercel.app/?lang=en" data-play="graft" data-accent="graft" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> GRAFT</span></a><button class="wg-like wg-like--lg" type="button" data-like="graft" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like GRAFT</span><span class="wg-like__count" data-stat="graft:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/graft/" data-share-title="GRAFT: Kill the beast. Wear its body." aria-label="Invite friends"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
     <p class="hint">Portrait, phone friendly. Wi-Fi works best for multiplayer. No install, no login.</p>
     <p class="level-what">Every beast you kill drops a body part (head, back, arms or legs) that you graft onto your hero, until you are a crab-snake-wolf hybrid with its own playstyle. Last one standing wins: solo against 7 bots, or with up to 12 friends.</p>
     <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-eye"/></svg><b data-stat="graft:view" data-unit="view">·</b><span class="unit">views</span></span><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="graft:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="graft:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
@@ -94,7 +94,12 @@
     <p>GRAFT started on 14 October from Zombie Tower&#39;s leftover look test. The pitch went through four designs that same afternoon, from &quot;You become what you kill&quot; to &quot;Kill the beast. Wear its body.&quot; A week later it shipped with real multiplayer: one phone hosts the match and up to 12 players join with a 5-letter code.</p>
     <p>The friend playtest was humbling. All three friends quit around rounds 3 to 5, and a timed run showed only 29% of the first six minutes was actual fighting. One friend&#39;s phone ran it at 6 FPS, so it got an ultra-low mode. And a scary FPS drop on my Mac turned out to be Dota 2 eating 450% CPU in the background.</p>
   </article>
-  <aside class="hard"><p class="wg-label">Hardest part</p><p>Keeping people in the match: in one playtest all three friends quit by round 5, and only 29% of a new player&#39;s first six minutes was fighting. The first minute got rebuilt from scratch.</p></aside>
+  <div class="wg-boss hard">
+    
+    <div class="wg-boss__head"><span class="wg-boss__icon"><svg class="wg-i" aria-hidden="true"><use href="#i-skull"/></svg></span><div><span class="wg-boss__label">Boss fight · hardest part</span><p class="wg-title">Keeping friends in the match</p></div></div>
+    <div class="wg-boss__hp"><span>HP</span><span class="wg-boss__bar" role="meter" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="Problem left"><i style="--hp:40%"></i></span><span>40</span></div>
+    <p>In one playtest all three friends quit by round 5, and only 29% of a new player&#39;s first six minutes was fighting. I rebuilt the first minute from scratch. This boss is still standing.</p>
+  </div>
 </section>
 
 <section class="block wg-wrap guest" id="cm" aria-labelledby="cm-t" data-comments="graft">
@@ -109,6 +114,7 @@
     <ul class="wg-comments" data-comment-list></ul>
     <p class="wg-empty" data-comment-empty hidden>No comments yet. Be the first to say something nice, or mean but useful.</p>
     <button class="wg-btn" type="button" data-comment-more hidden>Load older comments</button>
+    <p class="wg-form__alert" data-comment-offline hidden><svg class="wg-i" aria-hidden="true"><use href="#i-alert"/></svg><span>Comments can't load right now.</span> <button class="wg-btn" type="button" data-comment-retry>Retry</button></p>
   </div>
   <p class="guest-off wg-empty">The guestbook opens soon. Your likes already count on this device.</p>
 </section>

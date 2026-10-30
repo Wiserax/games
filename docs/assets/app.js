@@ -91,7 +91,7 @@ async function loadStats() {
     stats = (await get('/api/stats')).games;
     paintStats();
   } catch {
-    root.classList.remove('has-api'); // API down: same page as before it existed
+    root.classList.add('stats-off'); // API down: hide the numbers, keep likes and the guestbook (it has its own retry)
   }
 }
 
@@ -143,6 +143,8 @@ function paintPlayed() {
 }
 function trackPlay(game) {
   played.add(game); store.set('wg.played', [...played]);
+  paintPlayed();
+  try { sessionStorage.setItem('wg.lastPlay', JSON.stringify({ game, at: Date.now() })); } catch {}
   if (!root.classList.contains('has-api')) return;
   const body = new Blob([JSON.stringify({ game, kind: 'play' })], { type: 'text/plain' });
   if (!navigator.sendBeacon?.(API + '/api/hit', body)) post('/api/hit', { game, kind: 'play' }).catch(() => {});
@@ -184,10 +186,12 @@ function setupPlaybar() {
   if (!bar || !hero) return;
   bar.hidden = false;
   document.body.classList.add('has-playbar');
-  let typing = false;
+  let typing = false, guest = false;
   const io = new IntersectionObserver(([e]) => { bar.dataset.past = String(!e.isIntersecting && e.boundingClientRect.top < 0); update(); });
-  const update = () => bar.classList.toggle('is-on', bar.dataset.past === 'true' && !typing);
+  const update = () => bar.classList.toggle('is-on', bar.dataset.past === 'true' && !typing && !guest);
   io.observe(hero);
+  const cm = document.querySelector('#cm');
+  if (cm) new IntersectionObserver(([e]) => { guest = e.isIntersecting; update(); }, { rootMargin: '0px 0px -30% 0px' }).observe(cm);
   document.addEventListener('focusin', (e) => { typing = e.target.matches('input, textarea'); update(); });
   document.addEventListener('focusout', () => { typing = false; update(); });
 }
@@ -245,16 +249,22 @@ async function setupComments(box) {
   const form = box.querySelector('form');
   let oldest = null;
 
+  const offline = box.querySelector('[data-comment-offline]');
   async function page() {
     try {
       const { comments } = await get(`/api/comments?game=${game}&limit=20${oldest ? `&before=${oldest}` : ''}`);
+      offline.hidden = true;
       comments.forEach((c) => list.append(commentEl(c)));
       if (comments.length) oldest = comments[comments.length - 1].id;
       empty.hidden = list.children.length > 0;
       more.hidden = comments.length < 20;
-    } catch {}
+      if (oldest && !comments.length) toast("That's all of them.");
+    } catch {
+      offline.hidden = false;
+    }
   }
   more.addEventListener('click', page);
+  box.querySelector('[data-comment-retry]').addEventListener('click', page);
   page();
 
   const name = form.elements.name, body = form.elements.body, btn = form.querySelector('[type=submit]');
@@ -299,6 +309,38 @@ async function setupComments(box) {
   });
 }
 
+// ---------- labels that expire: "New" for 7 days after release, "Updated" for 7 days after a build ----------
+
+function paintFresh() {
+  const now = Date.now(), day = 864e5, d = (s) => Date.parse(s + 'T00:00:00Z');
+  const fmtD = (s) => new Date(d(s) + 432e5).toLocaleDateString('en', { month: 'short', day: 'numeric' });
+  document.querySelectorAll('[data-fresh]').forEach((el) => {
+    const isNew = now - d(el.dataset.first) < 7 * day, upd = now - d(el.dataset.last) < 7 * day;
+    el.textContent = isNew ? 'New' : upd ? `Updated ${fmtD(el.dataset.last)}` : '';
+    el.hidden = !(isNew || upd);
+  });
+  const lead = document.querySelector(`#${document.querySelector('.hero')?.dataset.accent} [data-fresh]`);
+  const leadNew = lead && !lead.hidden && lead.textContent === 'New';
+  document.querySelectorAll('[data-fresh-sticker]').forEach((el) => {
+    const st = document.querySelector(`#${el.closest('[data-node]')?.dataset.node} [data-fresh]`);
+    if (!st || st.hidden || st.textContent !== 'New') el.remove();
+  });
+  document.querySelectorAll('[data-fresh-label]').forEach((el) => { el.hidden = !leadNew; });
+}
+
+// ---------- after a game: back on the page, ask for a like or a comment once ----------
+
+function comeBack() {
+  let last = null;
+  try { last = JSON.parse(sessionStorage.getItem('wg.lastPlay')); } catch {}
+  if (!last || Date.now() - last.at < 4000) return;
+  try { sessionStorage.removeItem('wg.lastPlay'); } catch {}
+  const btn = document.querySelector(`[data-like="${last.game}"]`);
+  const title = btn?.querySelector('.wg-sr')?.textContent.replace(/^Like /, '') || 'the game';
+  if (liked.has(last.game)) toast(`Back from ${title}? Tell me what you thought in the guestbook.`, { ms: 6000 });
+  else toast(`Back from ${title}? Leave a like if it was fun.`, { kind: 'like', ms: 7000, action: { label: 'Like', run: () => btn && toggleLike(btn) } });
+}
+
 // ---------- theme ----------
 
 function setupTheme() {
@@ -311,8 +353,11 @@ function setupTheme() {
 }
 
 function init() {
+  paintFresh();
   paintLikes();
   paintPlayed();
+  addEventListener('pageshow', (e) => { paintPlayed(); if (e.persisted) comeBack(); });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') comeBack(); });
   setupLoops();
   setupTheme();
   setupPlaybar();
@@ -321,6 +366,8 @@ function init() {
     if (like) { e.preventDefault(); toggleLike(like); return; }
     const sh = e.target.closest('[data-share]');
     if (sh) { e.preventDefault(); share(sh); return; }
+    const lock = e.target.closest('[data-locked]');
+    if (lock) { lock.classList.remove('is-shaking'); void lock.offsetWidth; lock.classList.add('is-shaking'); toast('The next game is cooking. Like the ones you enjoy, it tells me what to make next.'); return; }
     const lt = e.target.closest('[data-loop-toggle]');
     if (lt) { loopsPaused = !loopsPaused; store.set('wg.loopsPaused', loopsPaused); paintLoops(); return; }
     const play = e.target.closest('[data-play]');
