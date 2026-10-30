@@ -10,7 +10,8 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 const OUT = join(ROOT, 'docs');
 const site = JSON.parse(readFileSync(join(ROOT, 'content/site.json'), 'utf8'));
 const media = JSON.parse(readFileSync(join(ROOT, 'content/media.json'), 'utf8'));
-const games = JSON.parse(readFileSync(join(ROOT, 'content/games.json'), 'utf8')).filter((g) => !g.hidden);
+const games = JSON.parse(readFileSync(join(ROOT, 'content/games.json'), 'utf8')).filter((g) => !g.hidden)
+  .sort((a, b) => b.timeline[0].date.localeCompare(a.timeline[0].date)); // newest first, on home and in prev/next
 const sprite = readFileSync(join(ROOT, 'src/sprite.svg'), 'utf8');
 const apiArg = process.argv.indexOf('--api');
 const API = apiArg > 0 ? process.argv[apiArg + 1] : site.api || '';
@@ -107,9 +108,9 @@ function fresh(g, now = Date.now()) {
   if (now - last < 7 * DAY) return 'updated';
   return '';
 }
-function status(g, sticker = false) {
+function status(g, card = false) {
   const f = fresh(g);
-  if (sticker && f === 'new') return `<span class="wg-chip game-chip">${esc(g.chip)}</span>`; // the NEW sticker on the card says it
+  if (card) return `<span class="wg-chip game-chip">${esc(g.chip)}</span>`; // on cards the NEW sticker says it
   const text = f === 'new' ? 'New' : f === 'updated' ? `Updated ${fmtDate(g.timeline[g.timeline.length - 1].date)}` : '';
   const attrs = `data-fresh data-first="${g.timeline[0].date}" data-last="${g.timeline[g.timeline.length - 1].date}"`;
   return `<span class="wg-status wg-status--new" ${attrs}${f ? '' : ' hidden'}>${text}</span><span class="wg-chip game-chip">${esc(g.chip)}</span>`;
@@ -144,6 +145,7 @@ function gameCard(g) {
   const f = fresh(g);
   return `<article class="wg-card game" id="${g.id}" data-card="${g.id}" data-accent="${g.id}">
   <div class="wg-card__media">
+    <a class="media-play" href="${esc(g.play)}" data-play="${g.id}" rel="noopener" aria-label="Play ${esc(g.title)}"><span class="media-play__btn" aria-hidden="true">${i('play')}</span></a>
     <video data-loop muted loop playsinline preload="none" poster="${r}media/${g.id}/poster.webp" width="360" height="780" aria-label="${esc(g.title)}: a few seconds of gameplay, looping"><source src="${r}media/${g.id}/loop.mp4" type="video/mp4"></video>
     ${f === 'new' ? `<span class="wg-new" data-fresh-sticker data-first="${g.timeline[0].date}">New</span>` : ''}
     <button class="wg-iconbtn loop-toggle" type="button" aria-pressed="false" aria-label="Pause the gameplay loops" data-loop-toggle><span class="ico-pause" aria-hidden="true"></span>${i('play', 'ico-play')}</button>
@@ -151,17 +153,16 @@ function gameCard(g) {
   <div class="wg-card__body">
     <p class="game-kicker"><span class="wg-card__kicker wg-label">${esc(g.genre)}</span>${status(g, true)}</p>
     <h2 class="wg-card__title"><a href="${r}${g.id}/">${esc(g.title)}</a></h2>
-    <p class="wg-card__text"><b>${esc(g.pitch)}</b> ${esc(g.whatShort)}</p>
+    <p class="wg-card__text"><b>${esc(g.pitch)}</b> <span class="what-short">${esc(g.whatShort)}</span></p>
     <div class="wg-card__actions">${playBtn(g)}${likeBtn(g)}${shareBtn(g)}</div>
     ${hud([[g.id, 'play', 'pad', 'play'], [g.id, 'comment', 'chat', 'comment', `${r}${g.id}/#cm`]])}
-    <span class="more" aria-hidden="true">Devlog and comments ${i('right')}</span>
+    <a class="more" href="${r}${g.id}/">Devlog and comments ${i('right')}</a>
   </div>
 </article>`;
 }
 
 function home() {
   const path = '';
-  const newest = games.slice().sort((a, b) => b.timeline[0].date.localeCompare(a.timeline[0].date));
   return `${head({ title: site.title, desc: site.description, path, image: 'media/og.jpg' })}
 ${topbar(path)}
 <main id="main">
@@ -172,7 +173,7 @@ ${topbar(path)}
 </section>
 <section class="wg-wrap" aria-label="Games">
   <div class="wg-cards games">
-${newest.map(gameCard).join('\n')}
+${games.map(gameCard).join('\n')}
   </div>
 </section>
 <section class="how wg-wrap">
@@ -225,7 +226,7 @@ ${topbar(path, true)}
   <div class="wg-boss hard${g.hardHp ? '' : ' is-defeated'}">
     ${g.hardHp ? '' : '<span class="wg-boss__stamp">Defeated</span>'}
     <div class="wg-boss__head"><span class="wg-boss__icon">${i('skull')}</span><div><span class="wg-boss__label">Boss fight · hardest part</span><p class="wg-title">${esc(g.hardTitle)}</p></div></div>
-    <div class="wg-boss__hp"><span>HP</span><span class="wg-boss__bar" role="meter" aria-valuenow="${g.hardHp}" aria-valuemin="0" aria-valuemax="100" aria-label="Problem left"><i style="--hp:${g.hardHp}%"></i></span><span>${g.hardHp}</span></div>
+    <div class="wg-boss__hp"${g.hardHp ? '' : ' hidden'}><span>HP</span><span class="wg-boss__bar" role="meter" aria-valuenow="${g.hardHp}" aria-valuemin="0" aria-valuemax="100" aria-label="Problem left"><i style="--hp:${g.hardHp}%"></i></span><span>${g.hardHp}</span></div>
     <p>${esc(g.hard)}</p>
   </div>
 </section>

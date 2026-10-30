@@ -78,7 +78,7 @@
       "boss fights"
     ],
     "play": "https://zombie-tower.vercel.app/",
-    "playNote": "Portrait, phone friendly. Sound starts off.",
+    "playNote": "Made for phones, plays on desktop too. Sound starts off.",
     "media": {
       "shots": [
         "Lightning towers shred the horde",
@@ -88,7 +88,7 @@
     },
     "hardTitle": "Thousands of zombies on a phone",
     "hardHp": 0,
-    "chip": "6,400 zombies on screen",
+    "chip": "6,400 zombies",
     "whatShort": "Guard one tower against thousands of zombies: tap, hold, upgrade, beat the boss.",
     "released": "2026-10-16"
   },
@@ -96,7 +96,7 @@
     "id": "graft",
     "level": 2,
     "title": "GRAFT",
-    "genre": "Multiplayer auto-battler",
+    "genre": "Auto-battler",
     "status": "live",
     "pitch": "Kill the beast. Wear its body.",
     "what": "Every beast you kill drops a body part (head, back, arms or legs) that you graft onto your hero, until you are a crab-snake-wolf hybrid with its own playstyle. Last one standing wins: solo against 7 bots, or with up to 12 friends.",
@@ -171,7 +171,7 @@
       "multiplayer"
     ],
     "play": "https://graft-game.vercel.app/?lang=en",
-    "playNote": "Portrait, phone friendly. Wi-Fi works best for multiplayer.",
+    "playNote": "Made for phones, plays on desktop too. Wi-Fi works best for multiplayer.",
     "media": {
       "shots": [
         "Snake Queen boss fight",
@@ -259,7 +259,7 @@
       "necromancer"
     ],
     "play": "https://necro-dev.vercel.app/",
-    "playNote": "Portrait, phone friendly. Drag anywhere to move.",
+    "playNote": "Made for phones, plays on desktop too. Drag anywhere to move.",
     "media": {
       "shots": [
         "The Frost Colossus in the crystals",

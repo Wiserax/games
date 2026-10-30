@@ -350,6 +350,7 @@ function init() {
     const play = e.target.closest('[data-play]');
     if (play) trackPlay(play.dataset.play);
   });
+  comeBack(); // a full reload after playing (iOS often drops the page) still gets the prompt
   if (!API) return;
   loadStats();
   post('/api/hit', { game: PAGE, kind: 'view' }).catch(() => {});

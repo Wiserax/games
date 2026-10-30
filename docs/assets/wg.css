@@ -679,3 +679,52 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 /* round 3: 12 px floor for labels, readable NEW pill on dark */
 :root{--fs-1:12px}
 .wg-status--new{--c:#FF85A8}
+
+/* ---------- round 4 ---------- */
+/* the clip is the play button; title and "Devlog" are plain links (no whole-card link) */
+.game .wg-card__title a::after{content:none}
+.game .wg-card__title a:hover{color:var(--acc-ink)}
+.media-play{position:absolute;inset:0;z-index:2;display:grid;place-items:center}
+.media-play__btn{display:grid;place-items:center;width:68px;height:68px;border-radius:50%;background:var(--acc-fill);color:var(--acc-on);box-shadow:0 4px 0 var(--acc-edge),0 0 0 8px var(--acc-soft),0 12px 32px var(--acc-glow);opacity:0;transform:scale(.85);transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-3) var(--ease-spring)}
+.media-play__btn .wg-i{width:26px;height:26px;margin-left:4px;fill:currentColor;stroke:none}
+.game:hover .media-play__btn,.media-play:focus-visible .media-play__btn{opacity:1;transform:none}
+.media-play:active .media-play__btn{transform:translateY(3px);box-shadow:0 1px 0 var(--acc-edge),0 0 0 8px var(--acc-soft)}
+.media-play:focus-visible{outline:0}
+@media (hover:none){.media-play__btn{opacity:.95;transform:none;width:56px;height:56px}}
+.game .loop-toggle{z-index:3}
+.game .wg-new{z-index:3;background:var(--acc-fill);color:var(--acc-on);animation-iteration-count:3}
+.tags .wg-chip{border-color:transparent;background:none;padding-inline:0 var(--s-1h);color:var(--text-3)}
+.tags .wg-chip::before{content:"#"}
+.wg-boss__hp[hidden]{display:none!important}
+
+/* phone: a compact row card, so the clip, the name and PLAY share one screen */
+@media (max-width:639px){
+  .hero{padding-top:var(--s-2);padding-bottom:var(--s-2)}
+  .hero-title{font-size:30px;max-width:none}
+  .hero-sub{font-size:var(--fs-4);margin-top:var(--s-1)}
+  .games{gap:var(--s-2)}
+  .game{display:grid;grid-template-columns:42% minmax(0,1fr)}
+  .game .wg-card__media{aspect-ratio:auto;min-height:100%}
+  .game .wg-card__media video{top:var(--s-1h);width:84%;height:auto;border-width:4px;border-radius:18px}
+  .game .wg-card__media .wg-new{top:var(--s-1);right:var(--s-1)}
+  .game .loop-toggle{right:6px;bottom:6px}
+  .game .wg-card__body{gap:var(--s-1);padding:var(--s-2) var(--s-2) var(--s-2) var(--s-1h)}
+  .game .game-chip{display:none}
+  .game .wg-card__title{font-size:26px}
+  .game .wg-card__text b{font-size:var(--fs-4);margin:0}
+  .game .what-short,.game .more{display:none}
+  .game .wg-card__actions{flex-wrap:wrap;padding-top:var(--s-1)}
+  .game .wg-card__actions .wg-play{flex:1 1 100%;--h:52px;padding:0 var(--s-2)}
+  .game .wg-card__actions .wg-like,.game .wg-card__actions .wg-iconbtn{height:48px;min-height:48px;min-width:48px}
+  .game .stats-hud{font-size:12px}
+}
+@media (min-width:1024px){
+  .hero-title{max-width:none}
+  .game .wg-card__media{aspect-ratio:6/5}
+}
+@media (min-width:1024px){
+  .hero{padding-top:var(--s-4);padding-bottom:var(--s-3)}
+  .hero-title{font-size:56px}
+  .game .wg-card__media{aspect-ratio:4/3}
+  .game .wg-card__body{gap:var(--s-1)}
+}
