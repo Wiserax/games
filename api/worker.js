@@ -122,7 +122,7 @@ async function postComment(req, env, games) {
   const text = clean(b.body);
   if (text.length < LIMITS.bodyMin) throw new HttpError(400, 'say a little more');
   if (text.length > LIMITS.bodyMax) throw new HttpError(400, `keep it under ${LIMITS.bodyMax} characters`);
-  if (!(+b.ms >= LIMITS.minMsOnPage)) throw new HttpError(400, 'too fast, are you a robot?');
+  if (!(+b.ms >= LIMITS.minMsOnPage)) throw new HttpError(400, 'one sec, then try again');
   await checkPow(b, env);
   if (env.TURNSTILE_SECRET) await checkTurnstile(req, b, env);
 

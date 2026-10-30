@@ -7,7 +7,8 @@
 <meta name="description" content="This level does not exist.">
 <meta name="api" content="">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#050507" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F4F4F7" media="(prefers-color-scheme: light)">
 <link rel="canonical" href="https://wiserax.dev/games/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wiserax Games">
@@ -15,30 +16,57 @@
 <meta property="og:description" content="This level does not exist.">
 <meta property="og:url" content="https://wiserax.dev/games/">
 <meta property="og:image" content="https://wiserax.dev/games/media/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/games/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/games/assets/site.css?v=mvuxz4m5">
-<script>try{const t=localStorage.getItem('wg.theme');if(t)document.documentElement.dataset.theme=JSON.parse(t)}catch{}</script>
-<script type="module" src="/games/assets/app.js?v=mvuxz4m5"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/games/assets/tokens.css?v=mvuyt2g5">
+<link rel="stylesheet" href="/games/assets/components.css?v=mvuyt2g5">
+<link rel="stylesheet" href="/games/assets/site.css?v=mvuyt2g5">
+<script>try{const t=JSON.parse(localStorage.getItem('wg.theme'));if(t)document.documentElement.dataset.theme=t}catch{}</script>
+<script type="module" src="/games/assets/app.js?v=mvuyt2g5"></script>
 </head>
 <body data-game="site">
-<a class="skip" href="#main">Skip to content</a><header class="top">
-  <div class="top-in">
-    <a class="brand" href="/games/" aria-label="Wiserax Games home"><img src="/games/assets/logo.svg" alt="" width="22" height="22"><span>wiserax</span><span class="brand-sub">/games</span></a>
-    <nav class="top-nav" aria-label="Site">
-      <a class="top-link" href="https://wiserax.dev/wisecraft/">Wisecraft</a>
-      <button class="icon-btn theme-btn" type="button" data-theme-toggle aria-label="Switch light or dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v3m0 15v3M1.5 12h3m15 0h3M4.6 4.6l2.1 2.1m10.6 10.6 2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z" fill="currentColor"/></svg></button>
-    </nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.9-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.5-7.5 10.4-7.5 10.4z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-pad" viewBox="0 0 24 24"><path d="M6.5 7.5h11A4.5 4.5 0 0 1 22 12v1.5a3.5 3.5 0 0 1-6.3 2.1L14.5 14h-5l-1.2 1.6A3.5 3.5 0 0 1 2 13.5V12a4.5 4.5 0 0 1 4.5-4.5zM7.5 10v3.5M5.8 11.8h3.4M15.5 11h.01M17.5 13h.01"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 4.5h16v11.5H9.5L4 20.5z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+<symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4.5h11.5l-2.5 4 2.5 4H5"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5h.01"/></symbol>
+<symbol id="i-skull" viewBox="0 0 24 24"><path d="M12 3a8 8 0 0 0-8 8c0 2.6 1.3 4.4 3 5.5V20h10v-3.5c1.7-1.1 3-2.9 3-5.5a8 8 0 0 0-8-8zM10 20v-2.5M14 20v-2.5"/><circle cx="9" cy="11.5" r="1.6"/><circle cx="15" cy="11.5" r="1.6"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3.5M7 8.5l5-5 5 5M5 13v7h14v-7"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 16.5h5"/></symbol>
+<symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12v9M12 12L4 7.5"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-logo" viewBox="0 0 100 100"><polygon class="wg-brand__mark" points="8,10 30,10 30,27 70,27 70,10 92,10 92,54 71,90 50,58 29,90 8,54"/><polygon class="wg-brand__play" points="40,7 40,24 59,15.5"/></symbol>
+</svg>
+<a class="wg-skip" href="#main">Skip to content</a><header class="wg-topbar">
+  <a class="wg-brand" href="/games/" aria-label="Wiserax Games home"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-logo"/></svg>wiserax<span class="wg-brand__tag">games</span></a>
+  <div class="wg-topbar__end">
+    <a class="top-link" href="https://wiserax.dev/wisecraft/">Wisecraft</a>
+    <button class="wg-toggle" type="button" role="switch" aria-checked="false" aria-label="Light theme" data-theme-toggle><svg class="wg-i" aria-hidden="true"><use href="#i-moon"/></svg><svg class="wg-i" aria-hidden="true"><use href="#i-sun"/></svg></button>
   </div>
-</header><main id="main" class="lost"><p class="kicker mono">404</p><h1 class="hero-title"><span>Wrong level.</span> <span class="glow">Respawning...</span></h1><p><a class="play" href="https://wiserax.dev/games/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><span>Back to the map</span></a></p></main><footer class="foot">
-  <div class="foot-in">
-    <a class="made" href="https://wiserax.dev/wisecraft/"><img src="/games/assets/made-with-dark.svg" alt="Made with Wisecraft" width="188" height="28" class="only-dark"><img src="/games/assets/made-with-light.svg" alt="Made with Wisecraft" width="188" height="28" class="only-light"></a>
-    <p class="needs-api">Likes and comments need no account. Be nice, report the trolls.</p>
-    <p class="mono">Alex Wiserax · 2026 · <a href="https://github.com/Wiserax/games">source</a></p>
-  </div>
+</header><main id="main" class="lost wg-wrap"><p class="wg-label">404</p><h1 class="hero-title">Wrong level. <span class="wg-glow">Respawning...</span></h1><p class="actions"><a class="wg-play" href="/games/"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Back to the map</a></p></main><footer class="wg-footer">
+  <a class="wg-madewith" href="https://wiserax.dev/wisecraft/" aria-label="Made with Wisecraft"><img class="on-dark" src="/games/assets/made-with-dark.svg" alt="" width="214" height="32"><img class="on-light" src="/games/assets/made-with-light.svg" alt="" width="214" height="32"></a>
+  <nav aria-label="Footer"><a href="/games/">Games</a><a href="https://wiserax.dev/wisecraft/">Wisecraft</a><a href="https://github.com/Wiserax/games">Source</a></nav>
+  <span>Alex Wiserax · 2026</span>
 </footer>
+<div class="wg-toasts" aria-live="polite"></div>
 </body>
 </html>

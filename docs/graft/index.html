@@ -7,7 +7,8 @@
 <meta name="description" content="Every beast you kill drops a body part (head, back, arms or legs) that you graft onto your hero, until you are a crab-snake-wolf hybrid with its own playstyle. Last one standing wins: solo against 7 bots, or with up to 12 friends.">
 <meta name="api" content="">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#050507" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F4F4F7" media="(prefers-color-scheme: light)">
 <link rel="canonical" href="https://wiserax.dev/games/graft/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wiserax Games">
@@ -15,102 +16,134 @@
 <meta property="og:description" content="Every beast you kill drops a body part (head, back, arms or legs) that you graft onto your hero, until you are a crab-snake-wolf hybrid with its own playstyle. Last one standing wins: solo against 7 bots, or with up to 12 friends.">
 <meta property="og:url" content="https://wiserax.dev/games/graft/">
 <meta property="og:image" content="https://wiserax.dev/games/media/graft/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=mvuxz4m5">
-<script>try{const t=localStorage.getItem('wg.theme');if(t)document.documentElement.dataset.theme=JSON.parse(t)}catch{}</script>
-<script type="module" src="../assets/app.js?v=mvuxz4m5"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/tokens.css?v=mvuyt2g5">
+<link rel="stylesheet" href="../assets/components.css?v=mvuyt2g5">
+<link rel="stylesheet" href="../assets/site.css?v=mvuyt2g5">
+<script>try{const t=JSON.parse(localStorage.getItem('wg.theme'));if(t)document.documentElement.dataset.theme=t}catch{}</script>
+<script type="module" src="../assets/app.js?v=mvuyt2g5"></script>
 </head>
 <body data-game="graft">
-<a class="skip" href="#main">Skip to content</a>
-<header class="top">
-  <div class="top-in">
-    <a class="back" href="../"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H7m5 6-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>All games</span></a>
-    <nav class="top-nav" aria-label="Site">
-      <a class="top-link" href="https://wiserax.dev/wisecraft/">Wisecraft</a>
-      <button class="icon-btn theme-btn" type="button" data-theme-toggle aria-label="Switch light or dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v3m0 15v3M1.5 12h3m15 0h3M4.6 4.6l2.1 2.1m10.6 10.6 2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z" fill="currentColor"/></svg></button>
-    </nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.9-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.5-7.5 10.4-7.5 10.4z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-pad" viewBox="0 0 24 24"><path d="M6.5 7.5h11A4.5 4.5 0 0 1 22 12v1.5a3.5 3.5 0 0 1-6.3 2.1L14.5 14h-5l-1.2 1.6A3.5 3.5 0 0 1 2 13.5V12a4.5 4.5 0 0 1 4.5-4.5zM7.5 10v3.5M5.8 11.8h3.4M15.5 11h.01M17.5 13h.01"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 4.5h16v11.5H9.5L4 20.5z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+<symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4.5h11.5l-2.5 4 2.5 4H5"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5h.01"/></symbol>
+<symbol id="i-skull" viewBox="0 0 24 24"><path d="M12 3a8 8 0 0 0-8 8c0 2.6 1.3 4.4 3 5.5V20h10v-3.5c1.7-1.1 3-2.9 3-5.5a8 8 0 0 0-8-8zM10 20v-2.5M14 20v-2.5"/><circle cx="9" cy="11.5" r="1.6"/><circle cx="15" cy="11.5" r="1.6"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3.5M7 8.5l5-5 5 5M5 13v7h14v-7"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 16.5h5"/></symbol>
+<symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12v9M12 12L4 7.5"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-logo" viewBox="0 0 100 100"><polygon class="wg-brand__mark" points="8,10 30,10 30,27 70,27 70,10 92,10 92,54 71,90 50,58 29,90 8,54"/><polygon class="wg-brand__play" points="40,7 40,24 59,15.5"/></symbol>
+</svg>
+<a class="wg-skip" href="#main">Skip to content</a>
+<header class="wg-topbar">
+  <a class="wg-back" href="../"><svg class="wg-i" aria-hidden="true"><use href="#i-left"/></svg>All games</a>
+  <div class="wg-topbar__end">
+    <a class="top-link" href="https://wiserax.dev/wisecraft/">Wisecraft</a>
+    <button class="wg-toggle" type="button" role="switch" aria-checked="false" aria-label="Light theme" data-theme-toggle><svg class="wg-i" aria-hidden="true"><use href="#i-moon"/></svg><svg class="wg-i" aria-hidden="true"><use href="#i-sun"/></svg></button>
   </div>
 </header>
 <main id="main" data-accent="graft">
-<section class="ghero">
+<section class="ghero wg-wrap">
   <div class="ghero-copy">
-    <p class="kicker mono">Level 02 · Multiplayer auto-battler <span class="pill pill-live">Playable</span></p>
+    <p class="level-kicker"><span class="wg-label">Level 02 · Multiplayer auto-battler</span><span class="wg-status wg-status--live">Playable</span></p>
     <h1 class="ghero-title">GRAFT</h1>
     <p class="level-pitch">Kill the beast. Wear its body.</p>
+    <div class="actions" data-hero-actions><a class="wg-play wg-play--lg" href="https://graft-game.vercel.app/?lang=en" data-play="graft" data-accent="graft" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> GRAFT</span></a><button class="wg-like wg-like--lg" type="button" data-like="graft" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like GRAFT</span><span class="wg-like__count" data-stat="graft:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/graft/" data-share-title="GRAFT: Kill the beast. Wear its body." aria-label="Invite friends"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
+    <p class="hint">Portrait, phone friendly. Wi-Fi works best for multiplayer. No install, no login.</p>
     <p class="level-what">Every beast you kill drops a body part (head, back, arms or legs) that you graft onto your hero, until you are a crab-snake-wolf hybrid with its own playstyle. Last one standing wins: solo against 7 bots, or with up to 12 friends.</p>
-    <div class="actions"><a class="play play-hero" href="https://graft-game.vercel.app/?lang=en" data-play="graft" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><span>Play GRAFT</span></a><button class="like like-lg" type="button" data-like="graft" aria-pressed="false" aria-label="Like GRAFT"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z" fill="currentColor"/></svg><span data-like-label>Like</span><b data-stat="graft:like" class="like-n"></b></button></div>
-    <p class="hint mono">Portrait, phone friendly. Wi-Fi works best for multiplayer.</p>
-    <div class="stats"><span class="stat" data-stat-wrap hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><b data-stat="graft:play">0</b><span>plays</span></span><span class="stat" data-stat-wrap hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6.5 5 2.7 9.4 1.5 12c1.2 2.6 5 7 10.5 7s9.3-4.4 10.5-7C21.3 9.4 17.5 5 12 5zm0 11a4 4 0 110-8 4 4 0 010 8z" fill="currentColor"/></svg><b data-stat="graft:view">0</b><span>views</span></span><span class="stat" data-stat-wrap hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z" fill="currentColor"/></svg><b data-stat="graft:like">0</b><span>likes</span></span><span class="stat" data-stat-wrap hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a1 1 0 011 1v11a1 1 0 01-1 1H9l-5 4v-4H4a1 1 0 01-1-1V5a1 1 0 011-1z" fill="currentColor"/></svg><b data-stat="graft:comment">0</b><span>comments</span></span></div>
+    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-eye"/></svg><b data-stat="graft:view" data-unit="view">·</b><span class="unit">views</span></span><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="graft:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="graft:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
   </div>
-  <div class="ghero-media"><div class="phone" data-accent="graft">
-    <video data-loop muted loop playsinline preload="none" poster="../media/graft/poster.webp" width="360" height="780" aria-label="GRAFT gameplay, a few seconds on a loop">
+  <div class="ghero-media"><figure class="wg-media loop " data-accent="graft">
+    <video data-loop muted loop playsinline preload="none" poster="../media/graft/poster.webp" width="360" height="780" aria-label="GRAFT: a few seconds of gameplay, looping">
       <source src="../media/graft/loop.mp4" type="video/mp4">
     </video>
-  </div></div>
+    <button class="wg-iconbtn loop-toggle" type="button" aria-pressed="false" aria-label="Pause the gameplay loops" data-loop-toggle><span class="ico-pause" aria-hidden="true"></span><svg class="wg-i ico-play" aria-hidden="true"><use href="#i-play"/></svg></button>
+  </figure></div>
 </section>
 
-<section class="block shots-block" aria-label="Screenshots">
-  <div class="shots shots-lg"><figure><img src="../media/graft/shot-1.webp" alt="Snake Queen boss fight" width="600" height="1300" loading="lazy" decoding="async"><figcaption class="mono">Snake Queen boss fight</figcaption></figure><figure><img src="../media/graft/shot-2.webp" alt="A skeleton wearing its kills" width="600" height="1300" loading="lazy" decoding="async"><figcaption class="mono">A skeleton wearing its kills</figcaption></figure><figure><img src="../media/graft/shot-3.webp" alt="Wave cleared: pick one part" width="600" height="1298" loading="lazy" decoding="async"><figcaption class="mono">Wave cleared: pick one part</figcaption></figure></div>
+<section class="block wg-wrap" aria-labelledby="sc">
+  <h2 id="sc" class="wg-sr">Screenshots</h2>
+  <div class="gallery"><figure><div class="wg-media shot"><img src="../media/graft/shot-1.webp" alt="Snake Queen boss fight" width="600" height="1300" loading="lazy" decoding="async"></div><figcaption>Snake Queen boss fight</figcaption></figure><figure><div class="wg-media shot"><img src="../media/graft/shot-2.webp" alt="A skeleton wearing its kills" width="600" height="1300" loading="lazy" decoding="async"></div><figcaption>A skeleton wearing its kills</figcaption></figure><figure><div class="wg-media shot"><img src="../media/graft/shot-3.webp" alt="Wave cleared: pick one part" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption>Wave cleared: pick one part</figcaption></figure></div>
 </section>
 
-<section class="block devlog" aria-labelledby="dl">
-  <p class="kicker mono">Devlog</p>
-  <h2 id="dl">You become what you kill</h2>
-  <p>GRAFT started on 14 October from Zombie Tower&#39;s leftover look test. The pitch went through four designs that same afternoon, from &quot;You become what you kill&quot; to &quot;Kill the beast. Wear its body.&quot; A week later it shipped with real multiplayer: one phone hosts the match and up to 12 players join with a 5-letter code.</p>
-  <p>The friend playtest was humbling. All three friends quit around rounds 3 to 5, and a timed run showed only 29% of the first six minutes was actual fighting. One friend&#39;s phone ran it at 6 FPS, so it got an ultra-low mode. And a scary FPS drop on my Mac turned out to be Dota 2 eating 450% CPU in the background.</p>
-  <aside class="hard"><p class="kicker mono">Hardest part</p><p>Keeping people in the match: in one playtest all three friends quit by round 5, and only 29% of a new player&#39;s first six minutes was fighting. The first minute got rebuilt from scratch.</p></aside>
+<section class="block wg-wrap" aria-labelledby="dl">
+  <header class="wg-sechead"><span class="wg-sechead__kicker">Devlog</span><h2 class="wg-h2" id="dl">You become what you kill</h2></header>
+  <article class="wg-story">
+    <p>GRAFT started on 14 October from Zombie Tower&#39;s leftover look test. The pitch went through four designs that same afternoon, from &quot;You become what you kill&quot; to &quot;Kill the beast. Wear its body.&quot; A week later it shipped with real multiplayer: one phone hosts the match and up to 12 players join with a 5-letter code.</p>
+    <p>The friend playtest was humbling. All three friends quit around rounds 3 to 5, and a timed run showed only 29% of the first six minutes was actual fighting. One friend&#39;s phone ran it at 6 FPS, so it got an ultra-low mode. And a scary FPS drop on my Mac turned out to be Dota 2 eating 450% CPU in the background.</p>
+  </article>
+  <aside class="hard"><p class="wg-label">Hardest part</p><p>Keeping people in the match: in one playtest all three friends quit by round 5, and only 29% of a new player&#39;s first six minutes was fighting. The first minute got rebuilt from scratch.</p></aside>
 </section>
 
-<section class="block" aria-labelledby="pn">
-  <p class="kicker mono">Patch notes</p>
-  <h2 id="pn">How it got here</h2>
-  <ol class="timeline">
-    <li><time class="mono" datetime="2026-10-14">Oct 14, 2026</time><b>First build</b><span>Arena, hero and monsters from Zombie Tower&#39;s look test</span></li>
-    <li><time class="mono" datetime="2026-10-19">Oct 19, 2026</time><b>Hero bodies v2</b><span>Brute, Goblin and Skeleton heroes, first wolf parts</span></li>
-    <li><time class="mono" datetime="2026-10-20">Oct 20, 2026</time><b>Parts v2</b><span>All 8 part families remade after a phone playtest</span></li>
-    <li><time class="mono" datetime="2026-10-21">Oct 21, 2026</time><b>Ship day</b><span>Multiplayer by link, live duels with betting, Spanish</span></li>
-    <li><time class="mono" datetime="2026-10-26">Oct 26, 2026</time><b>New first minute</b><span>Solo tutorial: kill a beast, take a part, wear it</span></li>
-    <li><time class="mono" datetime="2026-10-28">Oct 28, 2026</time><b>Current build</b><span>Pick 1 of 3 parts, fair duels, shops open mid-run</span></li>
+<section class="block wg-wrap guest" id="cm" aria-labelledby="cm-t" data-comments="graft">
+  <header class="wg-sechead"><span class="wg-sechead__kicker">Guestbook · no account needed</span><h2 class="wg-h2" id="cm-t">Say hi</h2></header>
+  <div class="guest-on">
+    <form class="wg-form" novalidate>
+      <div class="wg-field"><label class="wg-field__label" for="cname">Name <small>optional, shows as anon</small></label><input class="wg-input" id="cname" name="name" maxlength="24" autocomplete="nickname"></div>
+      <div class="wg-field"><label class="wg-field__label" for="cbody">Comment</label><div class="wg-field__box"><textarea class="wg-input" id="cbody" name="body" maxlength="400" rows="3" aria-describedby="ccount" placeholder="What did you think? Found a bug?"></textarea><span class="wg-count" id="ccount" data-count>0 / 400</span></div></div>
+      <div class="wg-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="wg-form__foot"><p class="form-status" data-form-status role="status" aria-live="polite"></p><button class="wg-btn wg-btn--accent" type="submit"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg>Post comment</button></div>
+    </form>
+    <ul class="wg-comments" data-comment-list></ul>
+    <p class="wg-empty" data-comment-empty hidden>No comments yet. Be the first to say something nice, or mean but useful.</p>
+    <button class="wg-btn" type="button" data-comment-more hidden>Load older comments</button>
+  </div>
+  <p class="guest-off wg-empty">The guestbook opens soon. Your likes already count on this device.</p>
+</section>
+
+<section class="block wg-wrap" aria-labelledby="pn">
+  <header class="wg-sechead"><span class="wg-sechead__kicker">Patch notes</span><h2 class="wg-h2" id="pn">How it got here</h2></header>
+  <ol class="wg-tl">
+    <li class="wg-tl__item is-latest"><div class="wg-tl__head"><span class="wg-tl__ver">Current build</span><time class="wg-tl__date" datetime="2026-10-28">Oct 28</time></div><p>Pick 1 of 3 parts, fair duels, shops open mid-run</p></li>
+    <li class="wg-tl__item"><div class="wg-tl__head"><span class="wg-tl__ver">New first minute</span><time class="wg-tl__date" datetime="2026-10-26">Oct 26</time></div><p>Solo tutorial: kill a beast, take a part, wear it</p></li>
+    <li class="wg-tl__item"><div class="wg-tl__head"><span class="wg-tl__ver">Ship day</span><time class="wg-tl__date" datetime="2026-10-21">Oct 21</time></div><p>Multiplayer by link, live duels with betting, Spanish</p></li>
+    <li class="wg-tl__item"><div class="wg-tl__head"><span class="wg-tl__ver">Parts v2</span><time class="wg-tl__date" datetime="2026-10-20">Oct 20</time></div><p>All 8 part families remade after a phone playtest</p></li>
+    <li class="wg-tl__item"><div class="wg-tl__head"><span class="wg-tl__ver">Hero bodies v2</span><time class="wg-tl__date" datetime="2026-10-19">Oct 19</time></div><p>Brute, Goblin and Skeleton heroes, first wolf parts</p></li>
+    <li class="wg-tl__item"><div class="wg-tl__head"><span class="wg-tl__ver">First build</span><time class="wg-tl__date" datetime="2026-10-14">Oct 14</time></div><p>Arena, hero and monsters from Zombie Tower&#39;s look test</p></li>
   </ol>
 </section>
 
-<section class="block" aria-labelledby="fx">
-  <p class="kicker mono">By the numbers</p>
-  <h2 id="fx" class="sr-only">Facts</h2>
-  <div class="facts"><div class="fact"><b>12</b><span>players per match, no accounts</span></div><div class="fact"><b>8</b><span>monster families to wear</span></div><div class="fact"><b>4</b><span>body slots: head, back, arms, legs</span></div><div class="fact"><b>29%</b><span>of the first minutes spent fighting, before the rework</span></div><div class="fact"><b>438</b><span>automated tests</span></div><div class="fact"><b>687</b><span>commits in two weeks</span></div></div>
-  <div class="tags"><span class="chip">auto-battler</span><span class="chip">roguelite</span><span class="chip">last one standing</span><span class="chip">multiplayer</span></div>
+<section class="block wg-wrap" aria-labelledby="fx">
+  <header class="wg-sechead"><span class="wg-sechead__kicker">By the numbers</span><h2 class="wg-h2" id="fx">GRAFT in 6 numbers</h2></header>
+  <div class="wg-facts"><div class="wg-fact"><span class="fact-n">12</span><span class="wg-fact__value"><small>players per match, no accounts</small></span></div><div class="wg-fact"><span class="fact-n">8</span><span class="wg-fact__value"><small>monster families to wear</small></span></div><div class="wg-fact"><span class="fact-n">4</span><span class="wg-fact__value"><small>body slots: head, back, arms, legs</small></span></div><div class="wg-fact"><span class="fact-n">29%</span><span class="wg-fact__value"><small>of the first minutes spent fighting, before the rework</small></span></div><div class="wg-fact"><span class="fact-n">438</span><span class="wg-fact__value"><small>automated tests</small></span></div><div class="wg-fact"><span class="fact-n">687</span><span class="wg-fact__value"><small>commits in two weeks</small></span></div></div>
+  <p class="tags"><span class="wg-chip">auto-battler</span><span class="wg-chip">roguelite</span><span class="wg-chip">last one standing</span><span class="wg-chip">multiplayer</span></p>
 </section>
 
-<section class="block comments" aria-labelledby="cm" data-comments="graft" hidden>
-  <p class="kicker mono">Guestbook</p>
-  <h2 id="cm">Say hi</h2>
-  <form class="cform" novalidate>
-    <label class="field"><span>Name <i>(optional)</i></span><input name="name" maxlength="24" autocomplete="nickname" placeholder="anon"></label>
-    <label class="field"><span>Comment</span><textarea name="body" maxlength="400" rows="3" required placeholder="What did you think? Found a bug?"></textarea></label>
-    <label class="hp" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
-    <div class="cform-row"><span class="mono count"><span data-count-left>400</span> left</span><button class="btn" type="submit">Post comment</button></div>
-    <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-  </form>
-  <ul class="clist" data-comment-list></ul>
-  <p class="empty" data-comment-empty hidden>No comments yet. Be the first to say something nice (or mean, but useful).</p>
-  <button class="ghost" type="button" data-comment-more hidden>Load older comments</button>
-</section>
-
-<nav class="pn" aria-label="Other games">
-  <a class="pn-a" href="../zt/" data-accent="zt"><span class="mono"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H7m5 6-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Level 01</span><b>Zombie Tower</b></a>
-  <a class="pn-a pn-next" href="../necro/" data-accent="necro"><span class="mono">Level 03 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>NECRO</b></a>
-</nav>
+<nav class="block wg-wrap wg-pager" aria-label="Other games"><a class="wg-pager__link" href="../zt/" data-accent="zt"><span class="wg-pager__dir">Prev level</span><img class="wg-pager__thumb" src="../media/zt/thumb.webp" alt="" width="40" height="40"><span class="wg-pager__name">Zombie Tower</span></a><a class="wg-pager__link wg-pager__link--next" href="../necro/" data-accent="necro"><span class="wg-pager__dir">Next level</span><img class="wg-pager__thumb" src="../media/necro/thumb.webp" alt="" width="40" height="40"><span class="wg-pager__name">NECRO</span></a></nav>
 </main>
-<footer class="foot">
-  <div class="foot-in">
-    <a class="made" href="https://wiserax.dev/wisecraft/"><img src="../assets/made-with-dark.svg" alt="Made with Wisecraft" width="188" height="28" class="only-dark"><img src="../assets/made-with-light.svg" alt="Made with Wisecraft" width="188" height="28" class="only-light"></a>
-    <p class="needs-api">Likes and comments need no account. Be nice, report the trolls.</p>
-    <p class="mono">Alex Wiserax · 2026 · <a href="https://github.com/Wiserax/games">source</a></p>
-  </div>
+<div class="playbar" data-playbar data-accent="graft" hidden>
+  <a class="wg-play wg-play--sm" href="https://graft-game.vercel.app/?lang=en" data-play="graft" data-accent="graft" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> GRAFT</span></a>
+  <button class="wg-like" type="button" data-like="graft" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like GRAFT</span><span class="wg-like__count" data-stat="graft:like"></span></button>
+  <a class="wg-iconbtn wg-iconbtn--line" href="#cm" aria-label="Comments"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b class="playbar-n" data-stat="graft:comment"></b></a>
+  <button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/graft/" data-share-title="GRAFT: Kill the beast. Wear its body." aria-label="Invite friends"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button>
+</div>
+<footer class="wg-footer">
+  <a class="wg-madewith" href="https://wiserax.dev/wisecraft/" aria-label="Made with Wisecraft"><img class="on-dark" src="../assets/made-with-dark.svg" alt="" width="214" height="32"><img class="on-light" src="../assets/made-with-light.svg" alt="" width="214" height="32"></a>
+  <nav aria-label="Footer"><a href="../">Games</a><a href="https://wiserax.dev/wisecraft/">Wisecraft</a><a href="https://github.com/Wiserax/games">Source</a></nav>
+  <span>Alex Wiserax · 2026</span>
 </footer>
+<div class="wg-toasts" aria-live="polite"></div>
 </body>
 </html>

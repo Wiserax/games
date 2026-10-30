@@ -7,14 +7,14 @@
   "wisecraft": "https://wiserax.dev/wisecraft/",
   "kicker": "Wiserax · games · made with AI agents",
   "h1": [
-    "I make games",
-    "with AI agents.",
+    "I make games with AI agents.",
     "Pick a level."
   ],
-  "intro": "Every game here was built by me and my agents with Wisecraft. Some were prototypes that never got a green light, so they respawn here, still playable. All of them run in a phone browser: no install, no login.",
+  "intro": "Every game here was built by me and a crew of AI agents with Wisecraft. Some were prototypes that never got a green light, so they respawn here, still playable.",
   "how": {
     "title": "One human, a lot of agents",
     "text": "I direct, play and judge; agents write the code, draw the boards, run the bots and break my builds. Wisecraft is the studio kit that keeps them in line, and it's open source."
   },
-  "footer": "Likes and comments need no account. Be nice, report the trolls."
+  "footer": "Likes and comments need no account. Be nice, report the trolls.",
+  "sub": "Free, in your phone browser. No install, no login."
 }
