@@ -22,11 +22,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/tokens.css?v=mvuzzhog">
-<link rel="stylesheet" href="./assets/components.css?v=mvuzzhog">
-<link rel="stylesheet" href="./assets/site.css?v=mvuzzhog">
+<link rel="stylesheet" href="./assets/wg.css?v=mvv05j9s">
 
-<script type="module" src="./assets/app.js?v=mvuzzhog"></script>
+<script type="module" src="./assets/app.js?v=mvv05j9s"></script>
 </head>
 <body data-game="site">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -66,7 +64,7 @@
 <section class="hero wg-wrap">
   <h1 class="hero-title">I make games with AI agents. <span class="wg-glow">Pick one, press play.</span></h1>
   <p class="hero-sub">Free, in your phone browser. No install, no login.</p>
-  <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="all:play" data-unit="play">·</b><span class="unit">plays</span></span><span class="wg-hud__item"><svg class="wg-i wg-i--heart" aria-hidden="true"><use href="#i-heart"/></svg><b data-stat="all:like" data-unit="like">·</b><span class="unit">likes</span></span><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="all:comment" data-unit="comment">·</b><span class="unit">comments</span></span></div>
+  <p class="stats-hud" data-stat-wrap><span class="stat-item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="all:play" data-unit="play">0</b> <span class="unit">plays</span></span><span class="stat-sep" aria-hidden="true">·</span><span class="stat-item"><svg class="wg-i wg-i--heart" aria-hidden="true"><use href="#i-heart"/></svg><b data-stat="all:like" data-unit="like">0</b> <span class="unit">likes</span></span><span class="stat-sep" aria-hidden="true">·</span><span class="stat-item"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="all:comment" data-unit="comment">0</b> <span class="unit">comments</span></span><span class="stat-note">across 3 games</span></p>
 </section>
 <section class="wg-wrap" aria-label="Games">
   <div class="wg-cards games">
@@ -81,7 +79,7 @@
     <h2 class="wg-card__title"><a href="./necro/">NECRO</a></h2>
     <p class="wg-card__text"><b>Raise the dead, take their souls.</b> A necromancer whose ghost hands swing five weapons at once, island by island.</p>
     <div class="wg-card__actions"><a class="wg-play " href="https://necro-dev.vercel.app/" data-play="necro" data-accent="necro" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> NECRO</span></a><button class="wg-like" type="button" data-like="necro" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like NECRO</span><span class="wg-like__count" data-stat="necro:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/necro/" data-share-title="NECRO: Raise the dead, take their souls." aria-label="Share NECRO"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
-    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="necro:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="./necro/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="necro:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
+    <p class="stats-hud" data-stat-wrap><span class="stat-item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="necro:play" data-unit="play">0</b> <span class="unit">plays</span></span><span class="stat-sep" aria-hidden="true">·</span><a class="stat-item stat-link" href="./necro/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="necro:comment" data-unit="comment">0</b> <span class="unit">comments</span></a></p>
     <span class="more" aria-hidden="true">Devlog and comments <svg class="wg-i" aria-hidden="true"><use href="#i-right"/></svg></span>
   </div>
 </article>
@@ -96,7 +94,7 @@
     <h2 class="wg-card__title"><a href="./graft/">GRAFT</a></h2>
     <p class="wg-card__text"><b>Kill the beast. Wear its body.</b> Every beast you kill drops a part you wear, until you are a crab-snake-wolf hybrid.</p>
     <div class="wg-card__actions"><a class="wg-play " href="https://graft-game.vercel.app/?lang=en" data-play="graft" data-accent="graft" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> GRAFT</span></a><button class="wg-like" type="button" data-like="graft" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like GRAFT</span><span class="wg-like__count" data-stat="graft:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/graft/" data-share-title="GRAFT: Kill the beast. Wear its body." aria-label="Invite friends"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
-    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="graft:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="./graft/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="graft:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
+    <p class="stats-hud" data-stat-wrap><span class="stat-item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="graft:play" data-unit="play">0</b> <span class="unit">plays</span></span><span class="stat-sep" aria-hidden="true">·</span><a class="stat-item stat-link" href="./graft/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="graft:comment" data-unit="comment">0</b> <span class="unit">comments</span></a></p>
     <span class="more" aria-hidden="true">Devlog and comments <svg class="wg-i" aria-hidden="true"><use href="#i-right"/></svg></span>
   </div>
 </article>
@@ -111,7 +109,7 @@
     <h2 class="wg-card__title"><a href="./zt/">Zombie Tower</a></h2>
     <p class="wg-card__text"><b>Tap zombies. Build your fortress. Return stronger.</b> Guard one tower against thousands of zombies: tap, hold, upgrade, beat the boss.</p>
     <div class="wg-card__actions"><a class="wg-play " href="https://zombie-tower.vercel.app/" data-play="zt" data-accent="zt" rel="noopener"><svg class="wg-i" aria-hidden="true"><use href="#i-play"/></svg>Play<span class="wg-sr"> Zombie Tower</span></a><button class="wg-like" type="button" data-like="zt" aria-pressed="false"><svg class="wg-i" aria-hidden="true"><use href="#i-heart"/></svg><span class="wg-sr">Like Zombie Tower</span><span class="wg-like__count" data-stat="zt:like"></span></button><button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="https://wiserax.dev/games/zt/" data-share-title="Zombie Tower: Tap zombies. Build your fortress. Return stronger." aria-label="Share Zombie Tower"><svg class="wg-i" aria-hidden="true"><use href="#i-share"/></svg></button></div>
-    <div class="wg-hud stats-hud" data-stat-wrap><span class="wg-hud__item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="zt:play" data-unit="play">·</b><span class="unit">plays</span></span><a class="wg-hud__item" href="./zt/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="zt:comment" data-unit="comment">·</b><span class="unit">comments</span></a></div>
+    <p class="stats-hud" data-stat-wrap><span class="stat-item"><svg class="wg-i" aria-hidden="true"><use href="#i-pad"/></svg><b data-stat="zt:play" data-unit="play">0</b> <span class="unit">plays</span></span><span class="stat-sep" aria-hidden="true">·</span><a class="stat-item stat-link" href="./zt/#cm"><svg class="wg-i" aria-hidden="true"><use href="#i-chat"/></svg><b data-stat="zt:comment" data-unit="comment">0</b> <span class="unit">comments</span></a></p>
     <span class="more" aria-hidden="true">Devlog and comments <svg class="wg-i" aria-hidden="true"><use href="#i-right"/></svg></span>
   </div>
 </article>

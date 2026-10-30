@@ -31,12 +31,18 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .actions .wg-play,.wg-card__actions .wg-play{margin-bottom:var(--edge)}
 .actions .wg-like,.actions .wg-iconbtn{min-height:56px;height:56px;min-width:56px}
 .actions .wg-like{padding:0 var(--s-2)}
-.stats-hud{margin-top:var(--s-2)}
-.stats-hud .wg-hud__item{display:inline-flex;align-items:center;gap:6px;color:var(--text-2)}
-.stats-hud a.wg-hud__item{min-height:var(--tap);height:auto}
-.stats-hud a.wg-hud__item:hover{border-color:var(--acc-line);color:var(--text)}
-.stats-hud b{font-weight:var(--fw-700);color:var(--text)}
+.stats-hud{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-h) var(--s-1);margin-top:var(--s-2);font:var(--t-mono);color:var(--text-3);opacity:0;transition:opacity var(--dur-3) var(--ease-out)}
+:root.stats-on .stats-hud{opacity:1}
+.stat-item{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.stat-item .wg-i{width:14px;height:14px;color:var(--acc-ink)}
+.stat-item b{font-weight:var(--fw-700);color:var(--text)}
+.stat-link{position:relative;color:var(--text-2);text-decoration:underline;text-decoration-color:var(--acc-line);text-underline-offset:4px}
+.stat-link::after{content:"";position:absolute;inset:-14px -8px}
+.stat-link:hover{color:var(--acc-ink)}
+.stat-sep{color:var(--text-4)}
+.stat-note{color:var(--text-3)}
 :root:not(.has-api) .stats-hud,:root.stats-off .stats-hud{display:none}
+.playbar-n{opacity:0}:root.stats-on .playbar-n{opacity:1}
 .wg-like__count:empty{display:none}
 .game-chip{min-height:28px;font:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--acc-ink);border-color:var(--acc-line);background:var(--acc-soft)}
 
@@ -59,7 +65,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .game .wg-card__text{font-size:var(--fs-4);color:var(--text-2)}
 .game .wg-card__text b{display:block;margin-bottom:var(--s-h);font:var(--fw-600) var(--fs-5)/1.35 var(--font-sans)}
 .game .wg-card__actions .wg-like,.game .wg-card__actions .wg-iconbtn{min-height:56px;height:56px;min-width:56px}
-.game .stats-hud{position:relative;z-index:2;margin-top:0}
+.game .stats-hud{position:relative;z-index:2;margin-top:var(--s-h)}
 .game .loop-toggle{z-index:3}
 .more{display:inline-flex;align-items:center;gap:var(--s-1);min-height:var(--tap);font:var(--fw-600) var(--fs-3)/1.3 var(--font-sans);color:var(--text);box-shadow:inset 0 -1px var(--acc-line);align-self:flex-start}
 .more .wg-i{width:16px;height:16px;transition:transform var(--dur-2) var(--ease-out)}
@@ -137,3 +143,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
   .ghero{grid-template-columns:minmax(0,1fr) 320px;gap:var(--s-8);padding-top:var(--s-6)}
   .block{margin-top:var(--s-6)}
 }
+
+/* round 3: 12 px floor for labels, readable NEW pill on dark */
+:root{--fs-1:12px}
+.wg-status--new{--c:#FF85A8}

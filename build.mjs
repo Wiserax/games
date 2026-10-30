@@ -55,9 +55,7 @@ function head({ title, desc, path, image, game }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${r}assets/tokens.css?v=${V}">
-<link rel="stylesheet" href="${r}assets/components.css?v=${V}">
-<link rel="stylesheet" href="${r}assets/site.css?v=${V}">
+<link rel="stylesheet" href="${r}assets/wg.css?v=${V}">
 ${API ? "<script>document.documentElement.classList.add('has-api')</script>" : ''}
 <script type="module" src="${r}assets/app.js?v=${V}"></script>
 </head>
@@ -95,11 +93,11 @@ function shareBtn(g) {
   return `<button class="wg-iconbtn wg-iconbtn--line share" type="button" data-share="${BASE}${g.id}/" data-share-title="${esc(g.title)}: ${esc(g.pitch)}" aria-label="${label}">${i('share')}</button>`;
 }
 
-function hud(items) {
-  return `<div class="wg-hud stats-hud" data-stat-wrap>${items.map(([g, k, ico, label, href]) => {
+function hud(items, note = '') {
+  return `<p class="stats-hud" data-stat-wrap>${items.map(([g, k, ico, label, href]) => {
     const tag = href ? 'a' : 'span';
-    return `<${tag} class="wg-hud__item"${href ? ` href="${href}"` : ''}>${i(ico, ico === 'heart' ? 'wg-i--heart' : '')}<b data-stat="${g}:${k}" data-unit="${label}">·</b><span class="unit">${label}s</span></${tag}>`;
-  }).join('')}</div>`;
+    return `<${tag} class="stat-item${href ? ' stat-link' : ''}"${href ? ` href="${href}"` : ''}>${i(ico, ico === 'heart' ? 'wg-i--heart' : '')}<b data-stat="${g}:${k}" data-unit="${label}">0</b> <span class="unit">${label}s</span></${tag}>`;
+  }).join('<span class="stat-sep" aria-hidden="true">·</span>')}${note ? `<span class="stat-note">${note}</span>` : ''}</p>`;
 }
 
 const DAY = 864e5;
@@ -170,7 +168,7 @@ ${topbar(path)}
 <section class="hero wg-wrap">
   <h1 class="hero-title">${esc(site.h1[0])} <span class="wg-glow">${esc(site.h1[1])}</span></h1>
   <p class="hero-sub">${esc(site.sub)}</p>
-  ${hud([['all', 'play', 'pad', 'play'], ['all', 'like', 'heart', 'like'], ['all', 'comment', 'chat', 'comment']])}
+  ${hud([['all', 'play', 'pad', 'play'], ['all', 'like', 'heart', 'like'], ['all', 'comment', 'chat', 'comment']], `across ${games.length} games`)}
 </section>
 <section class="wg-wrap" aria-label="Games">
   <div class="wg-cards games">
@@ -209,7 +207,7 @@ ${topbar(path, true)}
     <div class="actions" data-hero-actions>${playBtn(g)}${likeBtn(g, true)}${shareBtn(g)}</div>
     <p class="hint">${esc(g.playNote)} No install, no login.</p>
     <p class="level-what">${esc(g.what)}</p>
-    ${hud([[g.id, 'view', 'eye', 'view'], [g.id, 'play', 'pad', 'play'], [g.id, 'comment', 'chat', 'comment', '#cm']])}
+    ${hud([[g.id, 'play', 'pad', 'play'], [g.id, 'view', 'eye', 'view'], [g.id, 'comment', 'chat', 'comment', '#cm']])}
   </div>
   <div class="ghero-media">${loop(g, r)}</div>
 </section>
@@ -277,7 +275,9 @@ ${footer(path)}`;
 
 if (existsSync(OUT)) rmSync(OUT, { recursive: true });
 mkdirSync(OUT, { recursive: true });
-cpSync(join(ROOT, 'src/assets'), join(OUT, 'assets'), { recursive: true });
+cpSync(join(ROOT, 'src/assets'), join(OUT, 'assets'), { recursive: true, filter: (f) => !/\/(tokens|components|site)\.css$/.test(f) });
+// one stylesheet: design system tokens + components, then the page layout
+writeFileSync(join(OUT, 'assets/wg.css'), ['tokens', 'components', 'site'].map((n) => readFileSync(join(ROOT, `src/assets/${n}.css`), 'utf8')).join('\n'));
 cpSync(join(ROOT, 'src/media'), join(OUT, 'media'), { recursive: true });
 writeFileSync(join(OUT, 'index.html'), home());
 games.forEach((g, n) => {

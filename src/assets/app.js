@@ -83,7 +83,10 @@ function paintStats() {
     el.textContent = el.classList.contains('wg-like__count') || el.classList.contains('playbar-n') ? (n ? fmt(n) : '') : fmt(n);
     const unit = el.dataset.unit && el.nextElementSibling;
     if (unit) unit.textContent = n === 1 ? el.dataset.unit : `${el.dataset.unit}s`;
+    // nobody has commented yet: invite instead of showing a zero
+    if (el.dataset.unit === 'comment' && el.closest('a') && !n) { el.textContent = ''; unit.textContent = 'Be the first to comment'; }
   });
+  root.classList.add('stats-on');
 }
 
 async function loadStats() {
@@ -179,10 +182,11 @@ function setupPlaybar() {
   const bar = document.querySelector('[data-playbar]'), hero = document.querySelector('[data-hero-actions]');
   if (!bar || !hero) return;
   bar.hidden = false;
+  bar.inert = true;
   document.body.classList.add('has-playbar');
   let typing = false, guest = false;
   const io = new IntersectionObserver(([e]) => { bar.dataset.past = String(!e.isIntersecting && e.boundingClientRect.top < 0); update(); });
-  const update = () => bar.classList.toggle('is-on', bar.dataset.past === 'true' && !typing && !guest);
+  const update = () => { const on = bar.dataset.past === 'true' && !typing && !guest; bar.classList.toggle('is-on', on); bar.inert = !on; };
   io.observe(hero);
   const cm = document.querySelector('#cm');
   if (cm) new IntersectionObserver(([e]) => { guest = e.isIntersecting; update(); }, { rootMargin: '0px 0px -30% 0px' }).observe(cm);
