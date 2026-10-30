@@ -13,7 +13,7 @@ SRC = {
 # round character close-ups for the map nodes: (source, centre x, centre y, crop width as share of image width)
 THUMB = {'zt': (C / 'zombie-tower/outputs/bi-prototype/01-boss.jpg', .5, .36, .62),
          'graft': (C / 'graft-design/channel-shots/02-skeleton-grafted-closeup.jpg', .5, .52, .6),
-         'necro': (Path('work/cap/necrofight-1.png'), .47, .45, .5)}
+         'necro': (Path('tools/sources/necro-fight.png'), .47, .45, .5)}
 out = Path('src/media'); man = {}
 for g, files in SRC.items():
     d = out / g; d.mkdir(parents=True, exist_ok=True); man[g] = {'shots': []}
