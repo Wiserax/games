@@ -329,24 +329,12 @@ function comeBack() {
   else toast(`Back from ${title}? Leave a like if it was fun.`, { kind: 'like', ms: 7000, action: { label: 'Like', run: () => btn && toggleLike(btn) } });
 }
 
-// ---------- theme ----------
-
-function setupTheme() {
-  const sw = document.querySelector('[data-theme-toggle]');
-  if (!sw) return;
-  const isLight = () => (root.dataset.theme ? root.dataset.theme === 'light' : matchMedia('(prefers-color-scheme: light)').matches);
-  const paint = () => sw.setAttribute('aria-checked', String(isLight()));
-  sw.addEventListener('click', () => { root.dataset.theme = isLight() ? 'dark' : 'light'; store.set('wg.theme', root.dataset.theme); paint(); });
-  paint();
-}
-
 function init() {
   paintFresh();
   paintLikes();
   addEventListener('pageshow', (e) => { if (e.persisted) comeBack(); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') comeBack(); });
   setupLoops();
-  setupTheme();
   setupPlaybar();
   document.addEventListener('click', (e) => {
     const like = e.target.closest('[data-like]');

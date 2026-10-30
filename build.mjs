@@ -32,16 +32,15 @@ function rel(path) {
 function head({ title, desc, path, image, game }) {
   const r = rel(path);
   return `<!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <meta name="api" content="${esc(API)}">
-<meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#050507" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#F4F4F7" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#050507">
 <link rel="canonical" href="${BASE + path}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wiserax Games">
@@ -59,7 +58,7 @@ function head({ title, desc, path, image, game }) {
 <link rel="stylesheet" href="${r}assets/tokens.css?v=${V}">
 <link rel="stylesheet" href="${r}assets/components.css?v=${V}">
 <link rel="stylesheet" href="${r}assets/site.css?v=${V}">
-<script>try{const t=JSON.parse(localStorage.getItem('wg.theme'));if(t)document.documentElement.dataset.theme=t}catch{}${API ? "document.documentElement.classList.add('has-api')" : ''}</script>
+${API ? "<script>document.documentElement.classList.add('has-api')</script>" : ''}
 <script type="module" src="${r}assets/app.js?v=${V}"></script>
 </head>
 <body data-game="${game || 'site'}">
@@ -76,7 +75,6 @@ function topbar(path, back) {
   ${left}
   <div class="wg-topbar__end">
     <a class="top-link" href="${site.wisecraft}">Wisecraft</a>
-    <button class="wg-toggle" type="button" role="switch" aria-checked="false" aria-label="Light theme" data-theme-toggle>${i('moon')}${i('sun')}</button>
   </div>
 </header>`;
 }
