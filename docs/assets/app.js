@@ -188,8 +188,9 @@ function setupPlaybar() {
   const io = new IntersectionObserver(([e]) => { bar.dataset.past = String(!e.isIntersecting && e.boundingClientRect.top < 0); update(); });
   const update = () => { const on = bar.dataset.past === 'true' && !typing && !guest; bar.classList.toggle('is-on', on); bar.inert = !on; };
   io.observe(hero);
-  const cm = document.querySelector('#cm');
-  if (cm) new IntersectionObserver(([e]) => { guest = e.isIntersecting; update(); }, { rootMargin: '0px 0px -30% 0px' }).observe(cm);
+  // hide over the comment form only, so the bar stays around while reading the devlog
+  const form = document.querySelector('#cm .wg-form') || document.querySelector('#cm');
+  if (form) new IntersectionObserver(([e]) => { guest = e.isIntersecting; update(); }).observe(form);
   document.addEventListener('focusin', (e) => { typing = e.target.matches('input, textarea'); update(); });
   document.addEventListener('focusout', () => { typing = false; update(); });
 }

@@ -128,7 +128,7 @@ function loop(g, r, cls = '') {
 function footer(path) {
   const r = rel(path);
   return `<footer class="wg-footer">
-  <a class="wg-madewith" href="${site.wisecraft}" aria-label="Made with Wisecraft"><img class="on-dark" src="${r}assets/made-with-dark.svg" alt="" width="214" height="32"><img class="on-light" src="${r}assets/made-with-light.svg" alt="" width="214" height="32"></a>
+  <a class="wg-madewith" href="${site.wisecraft}" aria-label="Made with Wisecraft"><img src="${r}assets/made-with-dark.svg" alt="" width="214" height="32"></a>
   <nav aria-label="Footer"><a href="${r}">Games</a><a href="${site.wisecraft}">Wisecraft</a><a href="${site.repo}">Source</a></nav>
   <span>Alex Wiserax · ${new Date().getFullYear()}</span>
 </footer>
@@ -206,7 +206,7 @@ ${topbar(path, true)}
     <h1 class="ghero-title">${esc(g.title)}</h1>
     <p class="level-pitch">${esc(g.pitch)}</p>
     <div class="actions" data-hero-actions>${playBtn(g)}${likeBtn(g, true)}${shareBtn(g)}</div>
-    <p class="hint">${esc(g.playNote)} No install, no login.</p>
+    <p class="hint">${esc(g.playNote)}</p>
     <p class="level-what">${esc(g.what)}</p>
     ${hud([[g.id, 'play', 'pad', 'play'], [g.id, 'view', 'eye', 'view'], [g.id, 'comment', 'chat', 'comment', '#cm']])}
   </div>
@@ -215,7 +215,7 @@ ${topbar(path, true)}
 
 <section class="block wg-wrap" aria-labelledby="sc">
   <h2 id="sc" class="wg-sr">Screenshots</h2>
-  <div class="gallery">${g.media.shots.map((s, n) => `<figure><div class="wg-media shot"><img src="${r}media/${g.id}/shot-${n + 1}.webp" alt="${esc(s)}" width="${size(g, n)[0]}" height="${size(g, n)[1]}" loading="lazy" decoding="async"></div><figcaption>${esc(s)}</figcaption></figure>`).join('')}</div>
+  <div class="gallery">${g.media.shots.map((s, n) => `<figure><div class="wg-media shot"><img src="${r}media/${g.id}/shot-${n + 1}.webp" srcset="${r}media/${g.id}/shot-${n + 1}-sm.webp 300w, ${r}media/${g.id}/shot-${n + 1}.webp 600w" sizes="(min-width:640px) 280px, 62vw" alt="${esc(s)}" width="${size(g, n)[0]}" height="${size(g, n)[1]}" loading="lazy" decoding="async"></div><figcaption>${esc(s)}</figcaption></figure>`).join('')}</div>
 </section>
 
 <section class="block wg-wrap" aria-labelledby="dl">

@@ -728,3 +728,22 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
   .game .wg-card__media{aspect-ratio:4/3}
   .game .wg-card__body{gap:var(--s-1)}
 }
+
+/* ---------- round 5 ---------- */
+.wg-toast .toast-action{min-height:var(--tap);padding:0 var(--s-2);border:2px solid currentColor;border-radius:var(--r-pill);color:var(--inv-text);font-weight:var(--fw-700)}
+.wg-toast .toast-action:hover{background:var(--inv-text);color:var(--inv)}
+.game .wg-card__title a{display:inline-flex;align-items:center;min-height:var(--tap)}
+.wg-iconbtn--line{border-color:var(--line-3)}
+.playbar:not(.is-on){visibility:hidden;transition:transform var(--dur-3) var(--ease-out),visibility 0s var(--dur-3)}
+@media (min-width:900px){.playbar{transform:translateY(calc(100% + 40px))}.playbar.is-on{transform:none}}
+.playbar-n{top:-2px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:var(--r-pill);background:var(--acc-fill);color:var(--acc-on);display:grid;place-items:center}
+.ghero{align-items:start}
+.hero .wg-glow{color:var(--mint-fill)}
+@media (min-width:640px){.wg-facts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:639px){
+  .game .more{display:inline-flex;min-height:var(--tap);font-size:var(--fs-2)}
+  .media-play__btn{width:44px;height:44px}
+  .media-play__btn .wg-i{width:18px;height:18px;margin-left:3px}
+}
+.actions .wg-play{min-width:0}
+.ghero .level-kicker .game-chip{flex-basis:auto;margin-right:100%}.ghero .level-kicker{row-gap:var(--s-1)}
