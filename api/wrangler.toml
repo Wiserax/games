@@ -1,0 +1,15 @@
+name = "wiserax-games-api"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+GAMES = "site,zt,graft,necro,firstfire"
+ORIGINS = "https://wiserax.dev,http://localhost:8790,http://127.0.0.1:8790"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "wiserax-games"
+database_id = "00000000-0000-0000-0000-000000000000"
+
+[triggers]
+crons = ["17 3 * * *"]

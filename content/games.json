@@ -1,0 +1,91 @@
+[
+  {
+    "id": "zt", "level": 1, "title": "Zombie Tower", "genre": "Tower defense", "status": "live",
+    "pitch": "Tap zombies. Build your fortress. Return stronger.",
+    "what": "Guard one tower while thousands of zombies pour in: tap to strike, hold to charge a big hit, buy upgrades and beat a boss at the end of every stage. Short runs, right in your phone browser.",
+    "storyTitle": "Can a phone browser draw a real horde?",
+    "story": [
+      "Zombie Tower started on 22 September as one question: can a phone browser draw a real zombie horde around a single tower? A day later my phone ran 8,000 low-detail zombies at 60 FPS, so I asked the agents for zombies that climb over each other instead of jamming. Version 0.4.7 turned the whole battlefield into a carpet of bodies, and we rolled it back the same day.",
+      "From there it grew into a real game: three chapters, ten bosses, cards, a hold-to-charge strike and a 3D world map. This month it wears a Halloween costume. My favourite moment: an agent quietly deleted the \"tired garrison\" mechanic because a reviewer said nobody noticed it. I noticed. It came back, this time visible."
+    ],
+    "hard": "Drawing the horde on a phone: with every effect on, my phone stays smooth up to 6,400 zombies and still runs 45 FPS with 8,000.",
+    "timeline": [
+      { "date": "2026-09-22", "label": "Visual lab", "text": "One tower, an instanced zombie horde, a phone browser test" },
+      { "date": "2026-09-23", "label": "v0.4.5", "text": "Lightweight zombies, phone capacity test up to 8,000" },
+      { "date": "2026-10-08", "label": "Short Sieges", "text": "10-wave stages become the game, plus a Halloween skin" },
+      { "date": "2026-10-11", "label": "v1.0", "text": "First release: bosses walk in from the rim" },
+      { "date": "2026-10-13", "label": "v1.2", "text": "Chapters 2 and 3 get their own worlds, hordes and music" },
+      { "date": "2026-10-16", "label": "v1.3", "text": "Cards, the hold-to-charge strike and a 3D world map" }
+    ],
+    "facts": [
+      { "n": "6,400", "label": "zombies on screen, still smooth on my phone" },
+      { "n": "10", "label": "bosses, from the Eye Golem to the Bone Wyrm" },
+      { "n": "3", "label": "chapters of 10 stages, 10 waves each" },
+      { "n": "614", "label": "automated tests in v1.3" },
+      { "n": "507", "label": "commits in four weeks" },
+      { "n": "2", "label": "languages: English and Spanish" }
+    ],
+    "tags": ["tower defense", "idle upgrades", "zombie horde", "boss fights"],
+    "play": "https://zombie-tower.vercel.app/", "playNote": "Portrait, phone friendly. Sound starts off.",
+    "media": { "shots": ["Lightning towers shred the horde", "The Eye Golem takes a beam", "Blade frenzy through packed zombies"] }
+  },
+  {
+    "id": "graft", "level": 2, "title": "GRAFT", "genre": "Multiplayer auto-battler", "status": "live",
+    "pitch": "Kill the beast. Wear its body.",
+    "what": "Every beast you kill drops a body part (head, back, arms or legs) that you graft onto your hero, until you are a crab-snake-wolf hybrid with its own playstyle. Last one standing wins: solo against 7 bots, or with up to 12 friends.",
+    "storyTitle": "You become what you kill",
+    "story": [
+      "GRAFT started on 14 October from Zombie Tower's leftover look test. The pitch went through four designs that same afternoon, from \"You become what you kill\" to \"Kill the beast. Wear its body.\" A week later it shipped with real multiplayer: one phone hosts the match and up to 12 players join with a 5-letter code.",
+      "The friend playtest was humbling. All three friends quit around rounds 3 to 5, and a timed run showed only 29% of the first six minutes was actual fighting. One friend's phone ran it at 6 FPS, so it got an ultra-low mode. And a scary FPS drop on my Mac turned out to be Dota 2 eating 450% CPU in the background."
+    ],
+    "hard": "Keeping people in the match: in one playtest all three friends quit by round 5, and only 29% of a new player's first six minutes was fighting. The first minute got rebuilt from scratch.",
+    "timeline": [
+      { "date": "2026-10-14", "label": "First build", "text": "Arena, hero and monsters from Zombie Tower's look test" },
+      { "date": "2026-10-19", "label": "Hero bodies v2", "text": "Brute, Goblin and Skeleton heroes, first wolf parts" },
+      { "date": "2026-10-20", "label": "Parts v2", "text": "All 8 part families remade after a phone playtest" },
+      { "date": "2026-10-21", "label": "Ship day", "text": "Multiplayer by link, live duels with betting, Spanish" },
+      { "date": "2026-10-26", "label": "New first minute", "text": "Solo tutorial: kill a beast, take a part, wear it" },
+      { "date": "2026-10-28", "label": "Current build", "text": "Pick 1 of 3 parts, fair duels, shops open mid-run" }
+    ],
+    "facts": [
+      { "n": "12", "label": "players per match, no accounts" },
+      { "n": "8", "label": "monster families to wear" },
+      { "n": "4", "label": "body slots: head, back, arms, legs" },
+      { "n": "29%", "label": "of the first minutes spent fighting, before the rework" },
+      { "n": "438", "label": "automated tests" },
+      { "n": "687", "label": "commits in two weeks" }
+    ],
+    "tags": ["auto-battler", "roguelite", "last one standing", "multiplayer"],
+    "play": "https://graft-game.vercel.app/?lang=en", "playNote": "Portrait, phone friendly. Wi-Fi works best for multiplayer.",
+    "media": { "shots": ["Snake Queen boss fight", "A skeleton wearing its kills", "Wave cleared: pick one part"] }
+  },
+  {
+    "id": "necro", "level": 3, "title": "NECRO", "genre": "Hack and slash", "status": "new",
+    "pitch": "Raise the dead, take their souls.",
+    "what": "Steer a necromancer with a joystick while her ghost hands swing up to five weapons on their own. Every enemy makes you stronger, until you can break the gate guard and open the next island.",
+    "storyTitle": "One week, three islands, eight axe swings",
+    "story": [
+      "NECRO was a one-week remake study: rebuild the first three islands of a mobile idle RPG I like, with my own hero and setting, in the phone browser. On Monday the agents turned gameplay videos into a design doc and a first playable island. By Friday there were 460 commits.",
+      "On day three I told them all the islands looked depressing, so islands 2 and 3 got new looks. The axe swing alone took eight versions. One of them failed because the test dummy stood 7 units away while real enemies come within 3.4, so the ghost hand kept reaching across the gap."
+    ],
+    "hard": "Making one axe swing feel right at phone size: the hit lands 400 ms into a 1,300 ms swing, without the hand flying across the screen. Eight versions.",
+    "timeline": [
+      { "date": "2026-10-26", "label": "Day 1", "text": "Design doc, Three.js scaffold, a bot playing island 1" },
+      { "date": "2026-10-27", "label": "Day 2", "text": "Islands 2 and 3, gates, sound, faster load on 4G" },
+      { "date": "2026-10-28", "label": "Day 3", "text": "Ghost-hand hero, slimmer assets, islands called depressing" },
+      { "date": "2026-10-29", "label": "Day 4", "text": "Crystal look for island 3, painted icons, juicier hits" },
+      { "date": "2026-10-30", "label": "Release", "text": "The eighth axe swing and new island borders" }
+    ],
+    "facts": [
+      { "n": "3", "label": "islands: Hollow Cemetery, Ashen Fields, Frost Abbey" },
+      { "n": "37", "label": "kinds of enemies and breakables" },
+      { "n": "12", "label": "weapons in 3 damage types" },
+      { "n": "5", "label": "ghost hands fighting at once" },
+      { "n": "460", "label": "commits in 5 days" },
+      { "n": "123", "label": "automated tests" }
+    ],
+    "tags": ["hack and slash", "idle RPG", "open map", "necromancer"],
+    "play": "https://necro-dev.vercel.app/", "playNote": "Portrait, phone friendly. Drag anywhere to move.",
+    "media": { "shots": ["The Frost Colossus in the crystals", "Frost Abbey yard, abbey knights", "Ashen Fields: rider and raiders"] }
+  }
+]
