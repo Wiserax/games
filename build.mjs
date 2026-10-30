@@ -111,8 +111,9 @@ function fresh(g, now = Date.now()) {
   if (now - last < 7 * DAY) return 'updated';
   return '';
 }
-function status(g) {
+function status(g, sticker = false) {
   const f = fresh(g);
+  if (sticker && f === 'new') return `<span class="wg-chip game-chip">${esc(g.chip)}</span>`; // the NEW sticker on the card says it
   const text = f === 'new' ? 'New' : f === 'updated' ? `Updated ${fmtDate(g.timeline[g.timeline.length - 1].date)}` : '';
   const attrs = `data-fresh data-first="${g.timeline[0].date}" data-last="${g.timeline[g.timeline.length - 1].date}"`;
   return `<span class="wg-status wg-status--new" ${attrs}${f ? '' : ' hidden'}>${text}</span><span class="wg-chip game-chip">${esc(g.chip)}</span>`;
@@ -141,75 +142,43 @@ function footer(path) {
 
 // ---------- home ----------
 
-// node spots in % (x, y) on the map: a zig-zag, the locked "next game" last
-const SPOTS = [[17, 72], [39, 30], [61, 72], [83, 30], [83, 30]];
-const PHONE = [[18, 66], [40, 22], [63, 68], [85, 20], [85, 20]];
-function curve(pts) {
-  let d = `M${pts[0][0]} ${pts[0][1]}`;
-  for (let k = 0; k < pts.length - 1; k++) {
-    const p0 = pts[k - 1] || pts[k], p1 = pts[k], p2 = pts[k + 1], p3 = pts[k + 2] || p2;
-    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
-    d += ` C${c1.map((v) => v.toFixed(1)).join(' ')} ${c2.map((v) => v.toFixed(1)).join(' ')} ${p2[0]} ${p2[1]}`;
-  }
-  return d;
-}
-
-function levelMap(r) {
-  const n = games.length + 1, pts = SPOTS.slice(0, n);
-  const at = (k) => `--x:${pts[k][0]}%;--y:${pts[k][1]}%;--px:${PHONE[k][0]}%;--py:${PHONE[k][1]}%`;
-  const nodes = games.map((g, k) => `<a class="wg-node map-node" href="#${g.id}" data-node="${g.id}" data-accent="${g.id}" style="${at(k)}"${g.status === 'new' ? ' aria-current="true"' : ''}>
-      <span class="wg-node__disc">${g.status === 'new' ? `<video data-loop muted loop playsinline preload="none" poster="${r}media/${g.id}/thumb.webp" aria-hidden="true"><source src="${r}media/${g.id}/node.mp4" type="video/mp4"></video>` : `<img src="${r}media/${g.id}/thumb.webp" alt="" width="120" height="120">`}${fresh(g) === 'new' ? '<span class="wg-new wg-new--corner" data-fresh-sticker>New</span>' : ''}<span class="cleared" title="Played">${i('check')}<span class="wg-sr">played</span></span></span>
-      <span class="wg-node__label"><span class="wg-node__num">${pad(g.level)}</span>${esc(g.short || g.title)}</span>
-    </a>`).join('\n    ');
-  return `<nav class="map" data-theme="dark" aria-label="Pick a game">
-    <svg class="map-path map-path--wide" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${curve(pts)}"/></svg>
-    <svg class="map-path map-path--phone" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${curve(PHONE.slice(0, n))}"/></svg>
-    ${nodes}
-    <button class="wg-node map-node is-locked" type="button" data-locked style="${at(n - 1)}"><span class="wg-node__disc">${i('lock')}</span><span class="wg-node__label"><span class="wg-node__num">${pad(n)}</span>Next game</span></button>
-  </nav>`;
-}
-
+// one card per game in a grid: a phone peeking out with the gameplay loop, then title, pitch, Play, like, share
 function gameCard(g) {
   const r = './';
-  return `<section class="level" id="${g.id}" data-accent="${g.id}" aria-labelledby="${g.id}-t">
-  <div class="level-head">
-    <p class="level-kicker"><span class="wg-label">Level ${pad(g.level)} · ${esc(g.genre)}</span>${status(g)}</p>
-    <h2 class="level-title" id="${g.id}-t">${esc(g.title)}</h2>
-    <p class="level-pitch">${esc(g.pitch)}</p>
-    <div class="actions">${playBtn(g)}${likeBtn(g)}${shareBtn(g)}</div>
+  const f = fresh(g);
+  return `<article class="wg-card game" id="${g.id}" data-card="${g.id}" data-accent="${g.id}">
+  <div class="wg-card__media">
+    <video data-loop muted loop playsinline preload="none" poster="${r}media/${g.id}/poster.webp" width="360" height="780" aria-label="${esc(g.title)}: a few seconds of gameplay, looping"><source src="${r}media/${g.id}/loop.mp4" type="video/mp4"></video>
+    ${f === 'new' ? `<span class="wg-new" data-fresh-sticker data-first="${g.timeline[0].date}">New</span>` : ''}
+    <button class="wg-iconbtn loop-toggle" type="button" aria-pressed="false" aria-label="Pause the gameplay loops" data-loop-toggle><span class="ico-pause" aria-hidden="true"></span>${i('play', 'ico-play')}</button>
   </div>
-  <div class="level-media">${loop(g, r)}</div>
-  <div class="level-body">
-    <p class="level-what">${esc(g.whatShort)}</p>
+  <div class="wg-card__body">
+    <p class="game-kicker"><span class="wg-card__kicker wg-label">${esc(g.genre)}</span>${status(g, true)}</p>
+    <h2 class="wg-card__title"><a href="${r}${g.id}/">${esc(g.title)}</a></h2>
+    <p class="wg-card__text"><b>${esc(g.pitch)}</b> ${esc(g.whatShort)}</p>
+    <div class="wg-card__actions">${playBtn(g)}${likeBtn(g)}${shareBtn(g)}</div>
     ${hud([[g.id, 'play', 'pad', 'play'], [g.id, 'comment', 'chat', 'comment', `${r}${g.id}/#cm`]])}
-    <div class="level-shots">${g.media.shots.slice(0, 3).map((s, n) => `<img src="${r}media/${g.id}/shot-${n + 1}-sm.webp" alt="${esc(s)}" width="${size(g, n, 1)[0]}" height="${size(g, n, 1)[1]}" loading="lazy" decoding="async">`).join('')}</div>
-    <a class="more" href="${r}${g.id}/">Devlog, patch notes and comments ${i('right')}</a>
+    <span class="more" aria-hidden="true">Devlog and comments ${i('right')}</span>
   </div>
-</section>`;
+</article>`;
 }
 
 function home() {
   const path = '';
-  const lead = games.find((g) => g.status === 'new') || games[games.length - 1];
-  const heroPlay = playBtn(lead, 'wg-play--lg play-hero', true).replace(i('play'), `<img class="play-thumb" src="./media/${lead.id}/thumb.webp" alt="" width="40" height="40">`);
+  const newest = games.slice().sort((a, b) => b.timeline[0].date.localeCompare(a.timeline[0].date));
   return `${head({ title: site.title, desc: site.description, path, image: 'media/og.jpg' })}
 ${topbar(path)}
 <main id="main">
-<section class="hero wg-wrap" data-accent="${lead.id}">
-  <div class="hero-copy">
-    <h1 class="hero-title">${esc(site.h1[0])} <span class="wg-glow">${esc(site.h1[1])}</span></h1>
-    <p class="hero-sub">${esc(site.sub)}</p>
-  </div>
-  <div class="hero-map">${levelMap('./')}</div>
-  <div class="hero-cta" data-accent="${lead.id}">
-    <p class="wg-label cta-label"><span data-fresh-label${fresh(lead) === 'new' ? '' : ' hidden'}>New · </span>${esc(lead.genre)}</p>
-    <div class="actions">${heroPlay}</div>
-    ${hud([['all', 'play', 'pad', 'play'], ['all', 'like', 'heart', 'like'], ['all', 'comment', 'chat', 'comment']])}
+<section class="hero wg-wrap">
+  <h1 class="hero-title">${esc(site.h1[0])} <span class="wg-glow">${esc(site.h1[1])}</span></h1>
+  <p class="hero-sub">${esc(site.sub)}</p>
+  ${hud([['all', 'play', 'pad', 'play'], ['all', 'like', 'heart', 'like'], ['all', 'comment', 'chat', 'comment']])}
+</section>
+<section class="wg-wrap" aria-label="Games">
+  <div class="wg-cards games">
+${newest.map(gameCard).join('\n')}
   </div>
 </section>
-<div class="levels wg-wrap" id="levels">
-${games.map(gameCard).join('\n')}
-</div>
 <section class="how wg-wrap">
   <header class="wg-sechead"><span class="wg-sechead__kicker">How these get made</span><h2 class="wg-h2">${esc(site.how.title)}</h2></header>
   <p class="wg-lead">${esc(site.intro)}</p>
@@ -229,14 +198,14 @@ function gamePage(g, idx) {
   const pager = (o, dir) => {
     const cls = `wg-pager__link${dir === 'next' ? ' wg-pager__link--next' : ''}`;
     if (!o) return `<a class="${cls}" href="${r}"><span class="wg-pager__dir">Back to</span><span class="wg-pager__name">All games</span></a>`;
-    return `<a class="${cls}" href="${r}${o.id}/" data-accent="${o.id}"><span class="wg-pager__dir">${dir === 'next' ? 'Next level' : 'Prev level'}</span><img class="wg-pager__thumb" src="${r}media/${o.id}/thumb.webp" alt="" width="40" height="40"><span class="wg-pager__name">${esc(o.title)}</span></a>`;
+    return `<a class="${cls}" href="${r}${o.id}/" data-accent="${o.id}"><span class="wg-pager__dir">${dir === 'next' ? 'Next game' : 'Previous game'}</span><img class="wg-pager__thumb" src="${r}media/${o.id}/thumb.webp" alt="" width="40" height="40"><span class="wg-pager__name">${esc(o.title)}</span></a>`;
   };
   return `${head({ title: `${g.title}: ${g.pitch} | Wiserax Games`, desc: g.what, path, image: `media/${g.id}/og.jpg`, game: g.id })}
 ${topbar(path, true)}
 <main id="main" data-accent="${g.id}">
 <section class="ghero wg-wrap">
   <div class="ghero-copy">
-    <p class="level-kicker"><span class="wg-label">Level ${pad(g.level)} · ${esc(g.genre)}</span>${status(g)}</p>
+    <p class="level-kicker"><span class="wg-label">${esc(g.genre)}</span>${status(g)}</p>
     <h1 class="ghero-title">${esc(g.title)}</h1>
     <p class="level-pitch">${esc(g.pitch)}</p>
     <div class="actions" data-hero-actions>${playBtn(g)}${likeBtn(g, true)}${shareBtn(g)}</div>
@@ -318,7 +287,7 @@ games.forEach((g, n) => {
   writeFileSync(join(OUT, g.id, 'index.html'), gamePage(g, n));
 });
 writeFileSync(join(OUT, '.nojekyll'), '');
-const lost = `${head({ title: 'Lost level | Wiserax Games', desc: 'This level does not exist.', path: '', image: 'media/og.jpg' })}${topbar('')}<main id="main" class="lost wg-wrap"><p class="wg-label">404</p><h1 class="hero-title">Wrong level. <span class="wg-glow">Respawning...</span></h1><p class="actions"><a class="wg-play" href="./">${i('play')}Back to the map</a></p></main>${footer('')}`;
+const lost = `${head({ title: 'Lost page | Wiserax Games', desc: 'This page does not exist.', path: '', image: 'media/og.jpg' })}${topbar('')}<main id="main" class="lost wg-wrap"><p class="wg-label">404</p><h1 class="hero-title">Wrong page. <span class="wg-glow">Respawning...</span></h1><p class="actions"><a class="wg-play" href="./">${i('play')}Back to all games</a></p></main>${footer('')}`;
 writeFileSync(join(OUT, '404.html'), lost.replaceAll('"./', `"${new URL(BASE).pathname}`));
 console.log(`built ${games.length} games into docs/ (api: ${API || 'none'})`);
 if (!API) console.warn('WARNING: no API address. Likes stay on each device, stats are hidden and the guestbook says it opens soon. Pass --api <url> or set content/site.json api.');

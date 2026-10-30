@@ -1,5 +1,9 @@
 /* Wiserax Games page layout. Everything visual comes from tokens.css + components.css (wg-*);
-   this file only places things and adds the few page-only pieces (map, loops, playbar). */
+   this file only places things and adds the few page-only pieces (game grid, loops, playbar). */
+
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 /* faint stars behind the dark theme */
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:var(--stars,.5);
@@ -14,66 +18,55 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .top-link:hover{color:var(--text)}
 @media (max-width:359px){.top-link{display:none}}
 
-.actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-1h) var(--s-1h)}
-.actions .wg-play{margin-bottom:var(--edge)}
+/* one button family for actions: sentence case Geist; mono caps stay for labels */
+.wg-btn{font:var(--fw-600) var(--fs-3)/1 var(--font-sans);letter-spacing:0;text-transform:none}
+.wg-footer nav a{display:inline-flex;align-items:center;justify-content:center;min-width:var(--tap)}
+.burst{position:fixed}
+.hero-title,.ghero-title,.wg-h2,.wg-card__title{text-wrap:balance}
+.hero-sub,.level-what,.wg-card__text,.wg-story p{text-wrap:pretty}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .wg-glow{text-shadow:none}}
+:root[data-theme="light"] .wg-glow{text-shadow:none}
+
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-1h)}
+.actions .wg-play,.wg-card__actions .wg-play{margin-bottom:var(--edge)}
+.actions .wg-like,.actions .wg-iconbtn{min-height:56px;height:56px;min-width:56px}
+.actions .wg-like{padding:0 var(--s-2)}
 .stats-hud{margin-top:var(--s-2)}
 .stats-hud .wg-hud__item{display:inline-flex;align-items:center;gap:6px;color:var(--text-2)}
 .stats-hud a.wg-hud__item{min-height:var(--tap);height:auto}
 .stats-hud a.wg-hud__item:hover{border-color:var(--acc-line);color:var(--text)}
 .stats-hud b{font-weight:var(--fw-700);color:var(--text)}
-:root:not(.has-api) .stats-hud{display:none}
+:root:not(.has-api) .stats-hud,:root.stats-off .stats-hud{display:none}
 .wg-like__count:empty{display:none}
+.game-chip{min-height:28px;font:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--acc-ink);border-color:var(--acc-line);background:var(--acc-soft)}
 
-/* ---------- hero ---------- */
-.hero{display:grid;gap:var(--s-2);padding-top:var(--s-3);padding-bottom:var(--s-4)}
-.hero-title{font:var(--fw-800) clamp(34px,3.4vw + 18px,64px)/1.02 var(--font-sans);letter-spacing:var(--ls-h1);color:var(--text)}
+/* ---------- home: hero + grid of games ---------- */
+.hero{padding-top:var(--s-4);padding-bottom:var(--s-3)}
+.hero-title{font:var(--fw-800) clamp(34px,3.4vw + 18px,64px)/1.02 var(--font-sans);letter-spacing:var(--ls-h1);color:var(--text);max-width:16ch}
 .hero-title .wg-glow{display:block}
 .hero-sub{margin-top:var(--s-1h);font:var(--t-lead);color:var(--text-2)}
-.cta-label{color:var(--acc-ink);margin-bottom:var(--s-1h)}
-.play-thumb{width:36px;height:36px;margin-left:-18px;border:2px solid var(--acc-on);border-radius:50%;object-fit:cover}
-.see-all .wg-i{width:16px;height:16px}
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .wg-glow{text-shadow:none}}
-:root[data-theme="light"] .wg-glow{text-shadow:none}
 
-/* level map: a zig-zag path of round levels */
-.map{position:relative;height:280px;border:1px solid var(--line-2);border-radius:var(--r-3);overflow:hidden;
-  background:radial-gradient(120% 90% at 70% 10%,color-mix(in srgb,var(--blue) 18%,transparent),transparent 60%),
-  linear-gradient(var(--line) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/24px 24px,var(--s1)}
-.map-path{position:absolute;inset:0;width:100%;height:100%}
-.map-path path{fill:none;stroke:var(--mint-edge);stroke-width:4;stroke-linecap:round;stroke-dasharray:0 13;vector-effect:non-scaling-stroke}
-.map .wg-node{--size:64px;position:absolute;left:var(--px);top:var(--py);transform:translate(-50%,calc(var(--size) / -2 - 4px));gap:6px}
-.map-path--wide{display:none}
-.map .wg-node[aria-current=true]{--size:78px}
-.map .wg-node__label{max-width:96px;white-space:normal;font-size:12px;padding:5px 8px;justify-content:center;text-align:center;line-height:1.15}
-.map .wg-node__num{font-size:11px}
-.map .wg-node.is-locked .wg-node__disc .wg-i{width:22px;height:22px}
-.map .wg-new--corner{top:-8px;right:-14px}
-.map .wg-node:active .wg-node__disc{transform:scale(.94)}
-.cleared{position:absolute;right:-4px;bottom:-4px;display:none;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--acc-fill);color:var(--acc-on);box-shadow:0 0 0 3px var(--bg)}
-.cleared .wg-i{width:14px;height:14px;stroke-width:3}
-.wg-node.is-played .cleared{display:grid}
-.wg-node[aria-current=true] .wg-node__disc{animation-iteration-count:3}
-
-/* ---------- game cards on home ---------- */
-.levels{display:grid;gap:var(--s-3);padding-top:var(--s-2)}
-.level{position:relative;display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);gap:var(--s-2) var(--s-2);padding:var(--s-3) var(--s-2);border:1px solid var(--line-2);border-radius:var(--r-3);
-  background:linear-gradient(160deg,var(--acc-soft),transparent 55%),var(--s1);scroll-margin-top:72px;overflow:hidden}
-.level::before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,var(--acc),transparent)}
-.level-head{grid-column:1/-1}
-.level-kicker{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-1) var(--s-1h);color:var(--acc-ink)}
-.level-title,.ghero-title{margin-top:var(--s-1h);font:var(--t-h1);letter-spacing:var(--ls-h1);color:var(--text)}
-.level-pitch{margin:var(--s-1) 0 var(--s-2);font:var(--fw-600) var(--fs-5)/1.35 var(--font-sans);color:var(--acc-ink)}
-.level-media{align-self:start}
-.level-media .wg-media{max-height:52svh;max-width:100%;margin-inline:auto;width:auto;height:auto}
-.level-body{min-width:0}
-.level-what{font-size:var(--fs-3);color:var(--text-2)}
-.level-shots{display:none}
-.more{display:inline-flex;align-items:center;gap:var(--s-1);min-height:var(--tap);margin-top:var(--s-1);font:var(--fw-600) var(--fs-3)/1.3 var(--font-sans);color:var(--text);box-shadow:inset 0 -1px var(--acc-line)}
+.games{grid-template-columns:1fr;gap:var(--s-3)}
+.game{scroll-margin-top:80px}
+.game .wg-card__media{aspect-ratio:1/1}
+.game .wg-card__media video{position:absolute;left:50%;top:var(--s-2);height:calc(100% + 60px);width:auto;aspect-ratio:360/780;object-fit:cover;border:5px solid var(--phone);border-radius:24px;box-shadow:var(--sh-2);translate:-50% 0;transition:translate var(--dur-3) var(--ease-spring),rotate var(--dur-3) var(--ease-spring);background:var(--s2)}
+.game .wg-card__media::after{content:"";position:absolute;inset:auto 0 0;height:56px;background:linear-gradient(transparent,var(--s1));pointer-events:none;z-index:1}
+.game:hover .wg-card__media video{translate:-50% -8px;rotate:-2deg}
+.game .wg-card__media .wg-new{position:absolute;top:var(--s-1h);right:var(--s-1h);z-index:2}
+.game .wg-card__body{gap:var(--s-1h)}
+.game-kicker{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-1)}
+.game .wg-card__title{font:var(--fw-800) var(--fs-7)/1.05 var(--font-sans);letter-spacing:var(--ls-h2)}
+.game .wg-card__text{font-size:var(--fs-4);color:var(--text-2)}
+.game .wg-card__text b{display:block;margin-bottom:var(--s-h);font:var(--fw-600) var(--fs-5)/1.35 var(--font-sans)}
+.game .wg-card__actions .wg-like,.game .wg-card__actions .wg-iconbtn{min-height:56px;height:56px;min-width:56px}
+.game .stats-hud{position:relative;z-index:2;margin-top:0}
+.game .loop-toggle{z-index:3}
+.more{display:inline-flex;align-items:center;gap:var(--s-1);min-height:var(--tap);font:var(--fw-600) var(--fs-3)/1.3 var(--font-sans);color:var(--text);box-shadow:inset 0 -1px var(--acc-line);align-self:flex-start}
 .more .wg-i{width:16px;height:16px;transition:transform var(--dur-2) var(--ease-out)}
-.more:hover{color:var(--acc-ink)}
-.more:hover .wg-i{transform:translateX(4px)}
+.game:hover .more{color:var(--acc-ink)}
+.game:hover .more .wg-i{transform:translateX(4px)}
 
-/* gameplay loop in a phone frame, with its own pause button */
+/* gameplay loop: one pause switch for all of them */
 .loop{width:100%}
 .loop-toggle{position:absolute;z-index:4;right:10px;bottom:10px;background:var(--scrim);color:var(--text);border:1px solid var(--line-2)}
 .loop-toggle .ico-pause{width:12px;height:14px;border-inline:4px solid currentColor}
@@ -81,13 +74,16 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .loop-toggle[aria-pressed=true] .ico-pause{display:none}
 .loop-toggle[aria-pressed=true] .ico-play{display:block}
 
-/* ---------- how ---------- */
-.how{margin-top:var(--s-6)}
+.how{margin-top:var(--s-8)}
 .how-text{margin:var(--s-2) 0 var(--s-3);max-width:var(--measure);color:var(--text-2)}
 
 /* ---------- game page ---------- */
 .ghero{display:grid;gap:var(--s-4);padding-top:var(--s-3)}
 .ghero-media{max-width:300px;width:100%;margin-inline:auto}
+.level-kicker{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-1) var(--s-1h);color:var(--acc-ink)}
+.ghero-title{margin-top:var(--s-1h);font:var(--t-h1);letter-spacing:var(--ls-h1);color:var(--text)}
+.level-pitch{margin:var(--s-1) 0 var(--s-2);font:var(--fw-600) var(--fs-5)/1.35 var(--font-sans);color:var(--acc-ink)}
+.level-what{color:var(--text-2)}
 .hint{margin-top:var(--s-1);font:var(--t-small);color:var(--text-3)}
 .ghero .level-what{margin-top:var(--s-2);font-size:var(--fs-4);max-width:var(--measure)}
 .block{margin-top:var(--s-4)}
@@ -100,7 +96,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .hard{margin-top:var(--s-3);max-width:var(--measure)}
 .guest .wg-form{max-width:640px}
 .guest .wg-comments{max-width:640px;margin-top:var(--s-3)}
-.guest .wg-empty,.guest [data-comment-more]{margin-top:var(--s-2);max-width:640px}
+.guest .wg-empty,.guest [data-comment-more],.guest [data-comment-offline]{margin-top:var(--s-2);max-width:640px}
 .guest-off{max-width:640px}
 :root.has-api .guest-off{display:none}
 :root:not(.has-api) .guest-on{display:none}
@@ -112,7 +108,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .tags{display:flex;flex-wrap:wrap;gap:var(--s-1);margin-top:var(--s-2)}
 .wg-pager{margin-bottom:var(--s-6)}
 
-/* sticky play bar on game pages, once the hero buttons scroll away */
+/* sticky play bar on game pages, once the hero buttons scroll away (hidden over the guestbook) */
 .playbar{position:fixed;z-index:var(--z-bar);left:0;right:0;bottom:0;display:flex;align-items:center;gap:var(--s-1);padding:var(--s-1) var(--gutter) calc(var(--s-1) + env(safe-area-inset-bottom));
   border-top:1px solid var(--line-2);background:var(--scrim);-webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);transform:translateY(110%);transition:transform var(--dur-3) var(--ease-out)}
 .playbar.is-on{transform:none}
@@ -121,70 +117,23 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .playbar-n{position:absolute;top:2px;right:0;font:var(--fw-700) 11px/1 var(--font-sans);color:var(--text)}
 .playbar-n:empty{display:none}
 .has-playbar .wg-footer{padding-bottom:calc(var(--s-12) + env(safe-area-inset-bottom))}
+.has-playbar .wg-toasts{bottom:calc(84px + env(safe-area-inset-bottom))}
 @media (min-width:900px){.playbar{left:50%;right:auto;bottom:var(--s-2);width:min(560px,calc(100% - 2 * var(--gutter)));translate:-50% 0;border:1px solid var(--line-2);border-radius:var(--r-pill);padding:var(--s-1) var(--s-1) var(--s-1) var(--s-1h)}}
 
 .lost{padding-block:var(--s-12)}
 .lost .actions{margin-top:var(--s-4)}
 
 /* ---------- wider screens ---------- */
-@media (min-width:600px){
-  .map{height:300px}
-  .map .wg-node{left:var(--x);top:var(--y)}
-  .map-path--wide{display:block}
-  .map-path--phone{display:none}
-  .map .wg-node{--size:84px}
-  .map .wg-node[aria-current=true]{--size:104px}
-  .map .wg-node__label{max-width:none;white-space:nowrap;font-size:var(--fs-3)}
-  .level{grid-template-columns:240px minmax(0,1fr);grid-template-areas:"media head" "media body";padding:var(--s-4)}
-  .level-head{grid-area:head;grid-column:auto}
-  .level-media{grid-area:media}
-  .level-body{grid-area:body}
-  .level-shots{display:flex;gap:var(--s-1);margin-top:var(--s-2)}
-  .level-shots img{width:76px;height:auto;border:1px solid var(--line-2);border-radius:var(--r-2)}
-  .gallery{overflow:visible;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-3)}
+@media (min-width:640px){
+  .games{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .game .wg-card__media{aspect-ratio:4/5}
+  .gallery{overflow:visible;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,280px));gap:var(--s-3)}
   .gallery figure{flex:none}
   .ghero{grid-template-columns:minmax(0,1fr) 280px;align-items:center}
 }
 @media (min-width:1024px){
-  .hero{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);grid-template-areas:"copy map" "cta map";align-items:center;column-gap:var(--s-6);padding-top:var(--s-8);padding-bottom:var(--s-8)}
-  .hero-copy{grid-area:copy;align-self:end}
-  .hero-map{grid-area:map}
-  .hero-cta{grid-area:cta;align-self:start;margin-top:var(--s-2)}
-  .map{height:440px}
-  .map .wg-node{--size:96px}
-  .map .wg-node[aria-current=true]{--size:120px}
-  .level{grid-template-columns:300px minmax(0,1fr);gap:var(--s-2) var(--s-6);padding:var(--s-5) var(--s-6)}
-  .level:nth-child(even){grid-template-columns:minmax(0,1fr) 300px;grid-template-areas:"head media" "body media"}
-  .level-shots img{width:92px}
+  .hero{padding-top:var(--s-6);padding-bottom:var(--s-4)}
+  .games{grid-template-columns:repeat(3,minmax(0,1fr))}
   .ghero{grid-template-columns:minmax(0,1fr) 320px;gap:var(--s-8);padding-top:var(--s-6)}
   .block{margin-top:var(--s-6)}
-}
-.burst{position:fixed}
-/* one button family for actions (critique r1): sentence case Geist; mono caps stay for labels */
-.wg-btn{font:var(--fw-600) var(--fs-3)/1 var(--font-sans);letter-spacing:0;text-transform:none}
-@media (min-width:600px){.gallery{grid-template-columns:repeat(3,minmax(0,280px))}}
-.wg-footer nav a{display:inline-flex;align-items:center;justify-content:center;min-width:var(--tap)}
-
-/* ---------- round 2 ---------- */
-[hidden]{display:none!important}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.hero-title,.level-title,.ghero-title,.wg-h2{text-wrap:balance}
-.hero-sub,.level-what,.wg-story p{text-wrap:pretty}
-.map{background-color:var(--s1);color:var(--text)}
-.map .wg-node__disc video{width:100%;height:100%;border-radius:50%;object-fit:cover}
-.map button.wg-node{background:none;border:0;padding:0}
-.map .wg-node.is-shaking .wg-node__disc{animation:wg-shake var(--dur-3) var(--ease-io)}
-.game-chip{min-height:28px;font:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--acc-ink);border-color:var(--acc-line);background:var(--acc-soft)}
-.level:target,.level.is-picked{animation:picked 1.4s var(--ease-out)}
-@keyframes picked{0%,40%{box-shadow:0 0 0 3px var(--acc),0 0 48px var(--acc-glow)}100%{box-shadow:0 0 0 0 transparent}}
-.actions .wg-like,.actions .wg-iconbtn{min-height:56px;height:56px;min-width:56px}
-.actions .wg-like{padding:0 var(--s-2)}
-.level-head .actions .wg-play{flex:1 1 auto;max-width:280px}
-.has-playbar .wg-toasts{bottom:calc(84px + env(safe-area-inset-bottom))}
-@media (max-width:599px){
-  .level{grid-template-columns:1fr}
-  .level-media .wg-media{max-height:56svh;width:auto;aspect-ratio:9/19.5}
-  .level-body{grid-column:1/-1}
-  .level-what{font-size:var(--fs-4)}
 }

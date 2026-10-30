@@ -137,13 +137,7 @@ function burst(btn) {
 
 // ---------- plays ----------
 
-const played = new Set(store.get('wg.played', []));
-function paintPlayed() {
-  document.querySelectorAll('[data-node]').forEach((n) => n.classList.toggle('is-played', played.has(n.dataset.node)));
-}
 function trackPlay(game) {
-  played.add(game); store.set('wg.played', [...played]);
-  paintPlayed();
   try { sessionStorage.setItem('wg.lastPlay', JSON.stringify({ game, at: Date.now() })); } catch {}
   if (!root.classList.contains('has-api')) return;
   const body = new Blob([JSON.stringify({ game, kind: 'play' })], { type: 'text/plain' });
@@ -319,13 +313,7 @@ function paintFresh() {
     el.textContent = isNew ? 'New' : upd ? `Updated ${fmtD(el.dataset.last)}` : '';
     el.hidden = !(isNew || upd);
   });
-  const lead = document.querySelector(`#${document.querySelector('.hero')?.dataset.accent} [data-fresh]`);
-  const leadNew = lead && !lead.hidden && lead.textContent === 'New';
-  document.querySelectorAll('[data-fresh-sticker]').forEach((el) => {
-    const st = document.querySelector(`#${el.closest('[data-node]')?.dataset.node} [data-fresh]`);
-    if (!st || st.hidden || st.textContent !== 'New') el.remove();
-  });
-  document.querySelectorAll('[data-fresh-label]').forEach((el) => { el.hidden = !leadNew; });
+  document.querySelectorAll('[data-fresh-sticker]').forEach((el) => { if (now - d(el.dataset.first) >= 7 * day) el.remove(); });
 }
 
 // ---------- after a game: back on the page, ask for a like or a comment once ----------
@@ -355,8 +343,7 @@ function setupTheme() {
 function init() {
   paintFresh();
   paintLikes();
-  paintPlayed();
-  addEventListener('pageshow', (e) => { paintPlayed(); if (e.persisted) comeBack(); });
+  addEventListener('pageshow', (e) => { if (e.persisted) comeBack(); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') comeBack(); });
   setupLoops();
   setupTheme();
@@ -366,8 +353,6 @@ function init() {
     if (like) { e.preventDefault(); toggleLike(like); return; }
     const sh = e.target.closest('[data-share]');
     if (sh) { e.preventDefault(); share(sh); return; }
-    const lock = e.target.closest('[data-locked]');
-    if (lock) { lock.classList.remove('is-shaking'); void lock.offsetWidth; lock.classList.add('is-shaking'); toast('The next game is cooking. Like the ones you enjoy, it tells me what to make next.'); return; }
     const lt = e.target.closest('[data-loop-toggle]');
     if (lt) { loopsPaused = !loopsPaused; store.set('wg.loopsPaused', loopsPaused); paintLoops(); return; }
     const play = e.target.closest('[data-play]');
